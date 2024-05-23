@@ -12,10 +12,7 @@ export const contents = ref({})
 export function showEpub(url: string) {
   bookLoading.value = false
   const book = ePub(url)
-  rendition = book.renderTo('reader', {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  })
+  rendition = book.renderTo('reader', { flow: 'scrolled' })
   rendition.display()
   themes = rendition.themes
   registerThemes()
