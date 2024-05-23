@@ -5,7 +5,7 @@ import { showEpub } from './reader'
 const url = '/Tools of Titans.epub'
 
 onMounted(() => {
-  showEpub(url)
+  showEpub('reader', url)
 })
 </script>
 

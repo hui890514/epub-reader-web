@@ -9,17 +9,17 @@ let locations: Locations
 export const bookLoading = ref(false)
 export const contents = ref({})
 
-export function showEpub(url: string) {
+export function showEpub(id: string, url: string) {
   bookLoading.value = false
   const book = ePub(url)
-  rendition = book.renderTo('reader', { flow: 'scrolled' })
+  rendition = book.renderTo('reader', { flow: 'scrolled', width: getWidth(id), stylesheet: '/epub.css' })
   rendition.display()
   themes = rendition.themes
   registerThemes()
   setTheme()
   setFontSize()
   book.ready.then(() => {
-    contents.value = book.navigation
+    contents.value = book.navigation.toc
     book.locations.generate(150)
   }).then(() => {
     locations = book.locations
@@ -99,4 +99,11 @@ export const currentFontsize = ref(16)
 export function setFontSize(fontSize = 16) {
   currentFontsize.value = fontSize
   themes.fontSize(`${fontSize}px`)
+}
+
+function getWidth(id: string) {
+  const style = window.getComputedStyle(document.getElementById(id)!)
+  const width = style.width.slice(0, -2)
+  const padding = style.width.slice(0, -2)
+  return Number(width) - Number(padding) * 2
 }
