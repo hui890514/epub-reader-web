@@ -1,4 +1,4 @@
-import ePub, { type Rendition } from 'epubjs'
+import ePub, { type NavItem, type Rendition } from 'epubjs'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'
@@ -7,7 +7,7 @@ let rendition: Rendition
 let themes: Themes
 let locations: Locations
 export const bookLoading = ref(false)
-export const contents = ref({})
+export const contents = ref<NavItem[]>()
 
 export function showEpub(id: string, url: string) {
   bookLoading.value = false

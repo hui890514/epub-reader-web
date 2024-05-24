@@ -4,7 +4,7 @@ This is a ePub reader in web.
 
 ## features
 
--
+- 图片点击变大
 
 ## License
 
