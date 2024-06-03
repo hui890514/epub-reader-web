@@ -76,15 +76,6 @@ export const themeList = [
       },
     },
   },
-  {
-    name: 'gold',
-    style: {
-      body: {
-        color: '#000',
-        background: 'rgb(241, 236, 226)',
-      },
-    },
-  },
 ]
 export const currentThemeIndex = ref(0)
 function registerThemes() {
@@ -92,7 +83,7 @@ function registerThemes() {
     themes.register(theme.name, theme.style)
   })
 }
-function setTheme(index = 0) {
+export function setTheme(index = 0) {
   currentThemeIndex.value = index
   themes.select(themeList[index].name)
 }
