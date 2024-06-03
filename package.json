@@ -12,7 +12,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "epubjs": "^0.3.93",
+    "epubjs": "0.3.83",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
