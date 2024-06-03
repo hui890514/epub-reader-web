@@ -98,8 +98,8 @@ function setTheme(index = 0) {
 }
 
 export const fontSizeList = [12, 14, 16, 18, 20, 22, 24]
-export const currentFontsize = ref(16)
-export function setFontSize(fontSize = 16) {
+export const currentFontsize = ref(18)
+export function setFontSize(fontSize = 18) {
   currentFontsize.value = fontSize
   themes.fontSize(`${fontSize}px`)
 }
