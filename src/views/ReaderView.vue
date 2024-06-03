@@ -11,10 +11,10 @@ import { contents } from '@/components/reader'
       <Toolbar />
     </div>
     <div class="flex flex-row flex-nowrap flex-1 overflow-hidden">
-      <div class="w-75 border-0 border-r-2 border-solid border-black overflow-hidden overflow-y-auto p-2">
+      <div class="w-75 border-0 border-r-2 border-solid border-black overflow-hidden overflow-y-auto p-1">
         <Contents :contents="contents" />
       </div>
-      <div class="flex-1 overflow-auto p-2">
+      <div class="flex-1 overflow-hidden">
         <Reader />
       </div>
     </div>

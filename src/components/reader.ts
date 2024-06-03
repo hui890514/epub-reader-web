@@ -9,10 +9,10 @@ let locations: Locations
 export const bookLoading = ref(false)
 export const contents = ref<NavItem[]>()
 
-export function showEpub(id: string, url: string) {
+export function showEpub(url: string) {
   bookLoading.value = false
   const book = ePub(url)
-  rendition = book.renderTo('reader', { flow: 'scrolled', width: getWidth(id), stylesheet: '/epub.css' })
+  rendition = book.renderTo('reader', { flow: 'scrolled', width: '100%', height: '100%' })
   rendition.display()
   themes = rendition.themes
   registerThemes()
@@ -52,6 +52,7 @@ export const themeList = [
       body: {
         color: '#000',
         background: '#fff',
+        padding: '0 12px !important',
       },
     },
   },
@@ -61,6 +62,7 @@ export const themeList = [
       body: {
         color: '#000',
         background: '#ceeaba',
+        padding: '0 12px !important',
       },
     },
   },
@@ -70,6 +72,7 @@ export const themeList = [
       body: {
         color: '#fff',
         background: '#000',
+        padding: '0 12px !important',
       },
     },
   },
@@ -99,11 +102,4 @@ export const currentFontsize = ref(16)
 export function setFontSize(fontSize = 16) {
   currentFontsize.value = fontSize
   themes.fontSize(`${fontSize}px`)
-}
-
-function getWidth(id: string) {
-  const style = window.getComputedStyle(document.getElementById(id)!)
-  const width = style.width.slice(0, -2)
-  const padding = style.width.slice(0, -2)
-  return Number(width) - Number(padding) * 2
 }

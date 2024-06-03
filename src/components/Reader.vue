@@ -5,10 +5,10 @@ import { showEpub } from './reader'
 const url = '/The Almanack of Naval Ravikant.epub'
 
 onMounted(() => {
-  showEpub('reader', url)
+  showEpub(url)
 })
 </script>
 
 <template>
-  <div id="reader" />
+  <div id="reader" class="overflow-hidden w-full h-full" />
 </template>
