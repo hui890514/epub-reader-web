@@ -1,10 +1,19 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { changeThemeVariable } from '@/helpers/theme'
 import { changeCurrentPage, currentFontsize, currentPage, currentPercentage, currentThemeIndex, setFontsize, setTheme, themeList, totalPage } from '@/helpers/reader'
 
 function changeTheme(index: number) {
   changeThemeVariable(index)
   setTheme(index)
+}
+
+const isFullScreen = ref(!!document.fullscreenElement)
+function toggleFullScreen() {
+  isFullScreen.value = !isFullScreen.value
+  isFullScreen.value
+    ? document.documentElement.requestFullscreen()
+    : document.exitFullscreen()
 }
 </script>
 
@@ -58,10 +67,19 @@ function changeTheme(index: number) {
         <div i-mdi:chevron-double-right c-t />
       </div>
     </div>
-    <div id="percentage" f-r-n items-center justify-end w-12>
-      <div>{{ (currentPercentage * 100).toFixed(1) }}</div>
-      <div>%</div>
+    <div id="percentage" f-r-n items-center justify-end w-12 c-t>
+      <div c-t>
+        {{ (currentPercentage * 100).toFixed(1) }}
+      </div>
+      <div c-t>
+        %
+      </div>
     </div>
-    <!-- <div class="i-mdi:stretch-to-page-outline w-1em h-1em" style="color: black;"></div> -->
+    <div id="full-screen" f-r-n items-center justify-end c-t>
+      <div i-d @click="toggleFullScreen">
+        <div v-if="!isFullScreen" i-mdi:fullscreen c-t />
+        <div v-else i-mdi:fullscreen-exit c-t />
+      </div>
+    </div>
   </div>
 </template>
