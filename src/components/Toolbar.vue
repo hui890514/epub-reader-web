@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { changeThemeVariable } from './theme'
-import { currentThemeIndex, setTheme, themeList } from '@/components/reader'
+import { changeThemeVariable } from '@/components/theme'
+import { currentFontsize, currentThemeIndex, setFontSize, setTheme, themeList } from '@/components/reader'
 
 function changeTheme(index: number) {
   changeThemeVariable(index)
@@ -24,9 +24,25 @@ function changeTheme(index: number) {
         </div>
       </template>
     </div>
-    <div i-mdi:plus-box-outline />
-    <div i-mdi:minus-box-outline />
-    <div i-mdi:plus-box />
-    <div i-mdi:minus-box />
+    <div id="fontsize" f-r-n items-center>
+      <div mr-1 c-t>
+        Fontsize:
+      </div>
+      <div
+        w-8 h-8 f-c cursor-pointer hover:border-1 hover:border-dotted hover:border-t
+        @click="setFontSize(currentFontsize - 2)"
+      >
+        <div i-mdi:minus-box-outline c-t />
+      </div>
+      <div c-t w-8 f-c>
+        {{ currentFontsize }}
+      </div>
+      <div
+        w-8 h-8 f-c cursor-pointer hover:border-1 hover:border-dotted hover:border-t
+        @click="setFontSize(currentFontsize + 2)"
+      >
+        <div i-mdi:plus-box-outline c-t />
+      </div>
+    </div>
   </div>
 </template>

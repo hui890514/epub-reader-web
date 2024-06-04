@@ -3,7 +3,7 @@ import type { NavItem } from 'epubjs/types/navigation'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'
-import { getCurrentThemeIndex } from '@/components/storage'
+import { getCurrentFontsize, getCurrentThemeIndex, setCurrentFontsize } from '@/components/storage'
 
 let rendition: Rendition
 let themes: Themes
@@ -19,7 +19,7 @@ export function showEpub(url: string) {
   themes = rendition.themes
   registerThemes()
   setTheme(getCurrentThemeIndex())
-  setFontSize()
+  setFontSize(getCurrentFontsize())
   book.ready.then(() => {
     contents.value = book.navigation.toc
     book.locations.generate(150)
@@ -92,7 +92,10 @@ export function setTheme(index = 0) {
 
 export const fontSizeList = [12, 14, 16, 18, 20, 22, 24]
 export const currentFontsize = ref(18)
-export function setFontSize(fontSize = 18) {
-  currentFontsize.value = fontSize
-  themes.fontSize(`${fontSize}px`)
+export function setFontSize(fontsize = 18) {
+  if (fontsize <= 0)
+    return
+  setCurrentFontsize(fontsize)
+  currentFontsize.value = fontsize
+  themes.fontSize(`${fontsize}px`)
 }
