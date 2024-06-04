@@ -2,6 +2,6 @@ export function debounce<F extends (...args: Parameters<F>) => ReturnType<F>>(f:
   let timeoutId: ReturnType<typeof setTimeout>
   return (...args: Parameters<F>): void => {
     timeoutId && clearTimeout(timeoutId)
-	  timeoutId = setTimeout(() => f(...args), wait)
+    timeoutId = setTimeout(() => f(...args), wait)
   }
 }
