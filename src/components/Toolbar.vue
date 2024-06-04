@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { changeThemeVariable } from '@/helpers/theme'
-import { currentFontsize, currentThemeIndex, setFontSize, setTheme, themeList } from '@/helpers/reader'
+import { currentFontsize, currentThemeIndex, setFontsize, setTheme, themeList } from '@/helpers/reader'
 
 function changeTheme(index: number) {
   changeThemeVariable(index)
@@ -16,7 +16,7 @@ function changeTheme(index: number) {
       </div>
       <template v-for="(theme, index) in themeList" :key="index">
         <div
-          :class="currentThemeIndex === index ? 'border-1 border-solid' : 'hover:border-1 hover:border-dotted'"
+          :class="currentThemeIndex === index ? 'border-1 border-solid' : 'hover:border-1 hover:border-dotted active:border-solid'"
           w-8 h-8 f-c cursor-pointer mr-1 border-t
           @click="changeTheme(index)"
         >
@@ -29,8 +29,8 @@ function changeTheme(index: number) {
         Fontsize:
       </div>
       <div
-        w-8 h-8 f-c cursor-pointer hover:border-1 hover:border-dotted hover:border-t
-        @click="setFontSize(currentFontsize - 2)"
+        w-8 h-8 f-c cursor-pointer hover:border-1 hover:border-dotted hover:border-t active:border-solid
+        @click="setFontsize(currentFontsize - 2)"
       >
         <div i-mdi:minus-box-outline c-t />
       </div>
@@ -38,8 +38,8 @@ function changeTheme(index: number) {
         {{ currentFontsize }}
       </div>
       <div
-        w-8 h-8 f-c cursor-pointer hover:border-1 hover:border-dotted hover:border-t
-        @click="setFontSize(currentFontsize + 2)"
+        w-8 h-8 f-c cursor-pointer hover:border-1 hover:border-dotted hover:border-t active:border-solid
+        @click="setFontsize(currentFontsize + 2)"
       >
         <div i-mdi:plus-box-outline c-t />
       </div>
