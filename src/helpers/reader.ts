@@ -49,11 +49,8 @@ export function showEpub(url: string) {
 }
 
 export function jump(href: number | string) {
-  // todo
-  if (typeof href === 'string')
-    rendition?.display(href)
-  else
-    rendition?.display(href)
+  // @ts-expect-error the display function type missing the union
+  rendition?.display(href)
 }
 export function jumpByProgress(progress = 0) {
   const percentage = progress / 100
