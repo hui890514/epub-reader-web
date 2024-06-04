@@ -1,5 +1,5 @@
-import { setCurrentThemeIndex } from '@/components/storage'
-import { themeList } from '@/components/reader'
+import { setCurrentThemeIndex } from '@/helpers/storage'
+import { themeList } from '@/helpers/reader'
 
 const rootStyle = document.documentElement.style
 
