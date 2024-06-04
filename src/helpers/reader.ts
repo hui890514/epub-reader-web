@@ -1,10 +1,16 @@
-import ePub, { type Rendition } from 'epubjs'
+import ePub, { type Book, type Rendition } from 'epubjs'
 import type { NavItem } from 'epubjs/types/navigation'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'
 import { getCurrentFontsize, getCurrentThemeIndex, setCurrentFontsize } from '@/helpers/storage'
 import { debounce } from '@/helpers/utils'
+
+declare global{
+  interface Window {
+    book: Book
+  }
+}
 
 let rendition: Rendition
 let themes: Themes
@@ -14,10 +20,13 @@ export const contents = ref<NavItem[]>()
 
 export const totalPage = ref(0)
 export const currentPage = ref(2)
-function getCurrentPage() {
+export const currentPercentage = ref(0)
+function getCurrentLocation() {
   currentPage.value = rendition.location?.start.index + 1
+  // @ts-expect-error percentage exists in fact
+  currentPercentage.value = rendition.location?.end.percentage
 }
-const _getCurrentPage = debounce(getCurrentPage, 200)
+const _getCurrentLocation = debounce(getCurrentLocation, 200)
 export function changeCurrentPage(page: number) {
   if (page <= 0 || page >= totalPage.value)
     return
@@ -44,7 +53,7 @@ export function showEpub(url: string) {
     bookLoading.value = true
   })
   rendition.on('relocated', () => {
-    _getCurrentPage()
+    _getCurrentLocation()
   })
 }
 
@@ -52,13 +61,11 @@ export function jump(href: number | string) {
   // @ts-expect-error the display function type missing the union
   rendition?.display(href)
 }
+
 export function jumpByProgress(progress = 0) {
-  const percentage = progress / 100
+  const percentage = progress
   const location = percentage > 0 ? locations.cfiFromPercentage(percentage) : '0'
   jump(location)
-}
-export function getCurrentLocation() {
-  return (rendition.currentLocation() as any)?.start?.cfi
 }
 
 export const themeList = [

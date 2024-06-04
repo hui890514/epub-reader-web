@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { changeThemeVariable } from '@/helpers/theme'
-import { changeCurrentPage, currentFontsize, currentPage, currentThemeIndex, setFontsize, setTheme, themeList, totalPage } from '@/helpers/reader'
+import { changeCurrentPage, currentFontsize, currentPage, currentPercentage, currentThemeIndex, setFontsize, setTheme, themeList, totalPage } from '@/helpers/reader'
 
 function changeTheme(index: number) {
   changeThemeVariable(index)
@@ -58,6 +58,7 @@ function changeTheme(index: number) {
         <div i-mdi:chevron-double-right c-t />
       </div>
     </div>
+    <div>{{ (currentPercentage * 100).toFixed(1) }}</div>
     <!-- <div class="i-mdi:stretch-to-page-outline w-1em h-1em" style="color: black;"></div> -->
   </div>
 </template>
