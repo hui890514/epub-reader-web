@@ -15,6 +15,8 @@ export default defineConfig({
   }],
   theme: {
     colors: {
+      't': 'var(--theme-color)',
+      't-b': 'var(--theme-bg-color)',
     },
   },
 })

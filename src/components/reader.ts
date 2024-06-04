@@ -3,6 +3,7 @@ import type { NavItem } from 'epubjs/types/navigation'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'
+import { changeThemeVariable } from './theme'
 
 let rendition: Rendition
 let themes: Themes

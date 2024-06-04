@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import { changeThemeVariable } from './theme'
 import { currentThemeIndex, setTheme, themeList } from '@/components/reader'
+
+function changeTheme(index: number) {
+  changeThemeVariable(index)
+  setTheme(index)
+}
 </script>
 
 <template>
@@ -12,7 +18,7 @@ import { currentThemeIndex, setTheme, themeList } from '@/components/reader'
         <div
           :class="currentThemeIndex === index ? 'border-1 border-solid' : 'hover:border-1 hover:border-dotted'"
           w-8 h-8 f-c cursor-pointer mr-1 border-black
-          @click="setTheme(index)"
+          @click="changeTheme(index)"
         >
           <div :style="`background: ${theme.style.body.background}`" w-4 h-4 border-1 border-black border-solid rounded-1px />
         </div>
