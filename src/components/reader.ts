@@ -3,7 +3,7 @@ import type { NavItem } from 'epubjs/types/navigation'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'
-import { changeThemeVariable } from './theme'
+import { getCurrentThemeIndex } from '@/components/storage'
 
 let rendition: Rendition
 let themes: Themes
@@ -18,7 +18,7 @@ export function showEpub(url: string) {
   rendition.display()
   themes = rendition.themes
   registerThemes()
-  setTheme()
+  setTheme(getCurrentThemeIndex())
   setFontSize()
   book.ready.then(() => {
     contents.value = book.navigation.toc

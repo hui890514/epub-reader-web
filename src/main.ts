@@ -4,8 +4,9 @@ import router from './router'
 import './style.css'
 import 'virtual:uno.css'
 import { changeThemeVariable } from './components/theme'
+import { getCurrentThemeIndex } from './components/storage'
 
-changeThemeVariable()
+changeThemeVariable(getCurrentThemeIndex())
 
 const app = createApp(App)
 
