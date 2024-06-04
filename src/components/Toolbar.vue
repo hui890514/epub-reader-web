@@ -58,7 +58,10 @@ function changeTheme(index: number) {
         <div i-mdi:chevron-double-right c-t />
       </div>
     </div>
-    <div>{{ (currentPercentage * 100).toFixed(1) }}</div>
+    <div id="percentage" f-r-n items-center justify-end w-12>
+      <div>{{ (currentPercentage * 100).toFixed(1) }}</div>
+      <div>%</div>
+    </div>
     <!-- <div class="i-mdi:stretch-to-page-outline w-1em h-1em" style="color: black;"></div> -->
   </div>
 </template>
