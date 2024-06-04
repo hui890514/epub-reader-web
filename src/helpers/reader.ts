@@ -75,7 +75,7 @@ export const themeList = [
       body: {
         color: '#000',
         background: '#fff',
-        padding: '0 12px !important',
+        padding: '0 12px 30px 12px !important',
       },
     },
   },
@@ -85,7 +85,7 @@ export const themeList = [
       body: {
         color: '#000',
         background: '#ceeaba',
-        padding: '0 12px !important',
+        padding: '0 12px 30px 12px !important',
       },
     },
   },
@@ -95,7 +95,7 @@ export const themeList = [
       body: {
         color: '#fff',
         background: '#000',
-        padding: '0 12px !important',
+        padding: '0 12px 30px 12px !important',
       },
     },
   },
