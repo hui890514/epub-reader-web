@@ -93,7 +93,7 @@ export function setTheme(index = 0) {
 
 const _setFontsize = debounce((fontsize: number) => {
   themes.fontSize(`${fontsize}px`)
-}, 300)
+}, 200)
 export const currentFontsize = ref(18)
 export function setFontsize(fontsize = 18) {
   if (fontsize <= 0)
