@@ -6,12 +6,12 @@ import { contents } from '@/components/reader'
 </script>
 
 <template>
-  <div id="reader-view" wh-f overflow-hidden box-border f-c-n border-2 border-solid border-black>
-    <div w-full h-12.5 overflow-hidden border-0 border-b-2 border-solid border-black>
+  <div id="reader-view" wh-f overflow-hidden f-c-n border-2 border-solid border-t>
+    <div w-full h-12.5 overflow-hidden border-0 border-b-2 border-solid border-t>
       <Toolbar />
     </div>
     <div f-r-n flex-1 overflow-hidden>
-      <div w-75 border-0 border-r-2 border-solid border-black overflow-hidden overflow-y-auto p-1>
+      <div w-75 border-0 border-r-2 border-solid border-t overflow-hidden overflow-y-auto p-1>
         <Contents :contents="contents" />
       </div>
       <div flex-1 overflow-hidden>

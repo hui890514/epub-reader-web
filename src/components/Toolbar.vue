@@ -11,16 +11,16 @@ function changeTheme(index: number) {
 <template>
   <div id="toolbar" wh-f px-1 f-r-n items-center justify-between>
     <div id="theme" f-r-n items-center>
-      <div mr-1>
+      <div mr-1 c-t>
         Theme:
       </div>
       <template v-for="(theme, index) in themeList" :key="index">
         <div
           :class="currentThemeIndex === index ? 'border-1 border-solid' : 'hover:border-1 hover:border-dotted'"
-          w-8 h-8 f-c cursor-pointer mr-1 border-black
+          w-8 h-8 f-c cursor-pointer mr-1 border-t
           @click="changeTheme(index)"
         >
-          <div :style="`background: ${theme.style.body.background}`" w-4 h-4 border-1 border-black border-solid rounded-1px />
+          <div :style="`background: ${theme.style.body.background}`" w-4 h-4 border-1 border-t border-solid rounded-1px />
         </div>
       </template>
     </div>
