@@ -11,7 +11,10 @@ import { contents } from '@/helpers/reader'
       <Toolbar />
     </div>
     <div f-r-n flex-1 overflow-hidden>
-      <div w-75 border-0 border-r-2 border-solid border-t overflow-hidden overflow-y-auto p-1>
+      <div
+        w-75 border-0 border-r-2 border-solid border-t overflow-hidden overflow-y-auto p-1
+        class="contents-wrapper"
+      >
         <Contents :contents="contents" />
       </div>
       <div flex-1 overflow-hidden>
@@ -20,3 +23,9 @@ import { contents } from '@/helpers/reader'
     </div>
   </div>
 </template>
+
+<style scoped>
+.contents-wrapper::-webkit-scrollbar {
+  display: none;
+}
+</style>
