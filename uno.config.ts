@@ -12,6 +12,7 @@ export default defineConfig({
     'f-r-n': 'flex flex-row flex-nowrap',
     'f-c-n': 'flex flex-col flex-nowrap',
     'wh-f': 'w-full h-full',
+    'i-d': 'w-8 h-8 f-c cursor-pointer hover:border-1 hover:border-dotted hover:border-t active:border-solid',
   }],
   theme: {
     colors: {

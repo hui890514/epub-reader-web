@@ -12,6 +12,13 @@ let locations: Locations
 export const bookLoading = ref(false)
 export const contents = ref<NavItem[]>()
 
+export const pages = ref(0)
+export const currentPage = ref(1)
+function changeCurrentPage() {
+  currentPage.value = rendition.location?.start.index + 1
+}
+const _changeCurrentPage = debounce(changeCurrentPage, 200)
+
 export function showEpub(url: string) {
   bookLoading.value = false
   const book = ePub(url)
@@ -26,7 +33,11 @@ export function showEpub(url: string) {
     book.locations.generate(150)
   }).then(() => {
     locations = book.locations
+    pages.value = book.packaging.spine.length
     bookLoading.value = true
+  })
+  rendition.on('relocated', () => {
+    _changeCurrentPage()
   })
 }
 

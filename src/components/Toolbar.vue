@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { changeThemeVariable } from '@/helpers/theme'
-import { currentFontsize, currentThemeIndex, setFontsize, setTheme, themeList } from '@/helpers/reader'
+import { currentFontsize, currentPage, currentThemeIndex, nextPage, pages, prevPage, setFontsize, setTheme, themeList } from '@/helpers/reader'
 
 function changeTheme(index: number) {
   changeThemeVariable(index)
@@ -28,21 +28,36 @@ function changeTheme(index: number) {
       <div mr-1 c-t>
         Fontsize:
       </div>
-      <div
-        w-8 h-8 f-c cursor-pointer hover:border-1 hover:border-dotted hover:border-t active:border-solid
-        @click="setFontsize(currentFontsize - 2)"
-      >
+      <div i-d @click="setFontsize(currentFontsize - 2)">
         <div i-mdi:minus-box-outline c-t />
       </div>
       <div c-t w-8 f-c>
         {{ currentFontsize }}
       </div>
-      <div
-        w-8 h-8 f-c cursor-pointer hover:border-1 hover:border-dotted hover:border-t active:border-solid
-        @click="setFontsize(currentFontsize + 2)"
-      >
+      <div i-d @click="setFontsize(currentFontsize + 2)">
         <div i-mdi:plus-box-outline c-t />
       </div>
     </div>
+    <div id="page" f-r-n items-center>
+      <div mr-1 c-t>
+        Page:
+      </div>
+      <div i-d @click="prevPage">
+        <div i-mdi:chevron-double-left c-t />
+      </div>
+      <div c-t ml-1>
+        {{ currentPage }}
+      </div>
+      <div c-t w-3 f-c>
+        /
+      </div>
+      <div c-t mr-1>
+        {{ pages }}
+      </div>
+      <div i-d @click="nextPage">
+        <div i-mdi:chevron-double-right c-t />
+      </div>
+    </div>
+    <!-- <div class="i-mdi:stretch-to-page-outline w-1em h-1em" style="color: black;"></div> -->
   </div>
 </template>
