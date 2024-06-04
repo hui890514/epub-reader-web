@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { changeThemeVariable } from '@/components/theme'
+import { changeThemeVariable } from '@/helpers/theme'
 import { currentFontsize, currentThemeIndex, setFontSize, setTheme, themeList } from '@/components/reader'
 
 function changeTheme(index: number) {

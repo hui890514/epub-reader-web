@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { showEpub } from './reader'
+import { showEpub } from '@/helpers/reader'
 
 const url = '/The Almanack of Naval Ravikant.epub'
 

@@ -2,7 +2,7 @@
 import Toolbar from '@/components/Toolbar.vue'
 import Contents from '@/components/Contents.vue'
 import Reader from '@/components/Reader.vue'
-import { contents } from '@/components/reader'
+import { contents } from '@/helpers/reader'
 </script>
 
 <template>
