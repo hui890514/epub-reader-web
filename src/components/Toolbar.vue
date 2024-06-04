@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { changeThemeVariable } from '@/helpers/theme'
-import { currentFontsize, currentPage, currentThemeIndex, nextPage, pages, prevPage, setFontsize, setTheme, themeList } from '@/helpers/reader'
+import { changeCurrentPage, currentFontsize, currentPage, currentThemeIndex, jump, nextPage, prevPage, setFontsize, setTheme, themeList, totalPage } from '@/helpers/reader'
 
 function changeTheme(index: number) {
   changeThemeVariable(index)
@@ -42,7 +42,7 @@ function changeTheme(index: number) {
       <div mr-1 c-t>
         Page:
       </div>
-      <div i-d @click="prevPage">
+      <div i-d @click="changeCurrentPage(currentPage - 1)">
         <div i-mdi:chevron-double-left c-t />
       </div>
       <div c-t ml-1>
@@ -52,9 +52,9 @@ function changeTheme(index: number) {
         /
       </div>
       <div c-t mr-1>
-        {{ pages }}
+        {{ totalPage }}
       </div>
-      <div i-d @click="nextPage">
+      <div i-d @click="changeCurrentPage(currentPage + 1)">
         <div i-mdi:chevron-double-right c-t />
       </div>
     </div>

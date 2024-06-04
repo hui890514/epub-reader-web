@@ -12,18 +12,25 @@ let locations: Locations
 export const bookLoading = ref(false)
 export const contents = ref<NavItem[]>()
 
-export const pages = ref(0)
-export const currentPage = ref(1)
-function changeCurrentPage() {
+export const totalPage = ref(0)
+export const currentPage = ref(2)
+function getCurrentPage() {
   currentPage.value = rendition.location?.start.index + 1
 }
-const _changeCurrentPage = debounce(changeCurrentPage, 200)
+const _getCurrentPage = debounce(getCurrentPage, 200)
+export function changeCurrentPage(page: number) {
+  if (page <= 0 || page >= totalPage.value)
+    return
+  currentPage.value = page
+  jump(page - 1)
+}
 
 export function showEpub(url: string) {
   bookLoading.value = false
   const book = ePub(url)
   rendition = book.renderTo('reader', { flow: 'scrolled', width: '100%', height: '100%' })
   rendition.display()
+  window.book = book
   themes = rendition.themes
   registerThemes()
   setTheme(getCurrentThemeIndex())
@@ -33,22 +40,20 @@ export function showEpub(url: string) {
     book.locations.generate(150)
   }).then(() => {
     locations = book.locations
-    pages.value = book.packaging.spine.length
+    totalPage.value = book.packaging.spine.length
     bookLoading.value = true
   })
   rendition.on('relocated', () => {
-    _changeCurrentPage()
+    _getCurrentPage()
   })
 }
 
-export function prevPage() {
-  rendition?.prev()
-}
-export function nextPage() {
-  rendition?.next()
-}
-export function jump(href = '0') {
-  rendition?.display(href)
+export function jump(href: number | string) {
+  // todo
+  if (typeof href === 'string')
+    rendition?.display(href)
+  else
+    rendition?.display(href)
 }
 export function jumpByProgress(progress = 0) {
   const percentage = progress / 100
