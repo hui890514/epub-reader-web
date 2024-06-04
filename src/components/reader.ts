@@ -48,7 +48,7 @@ export function getCurrentLocation() {
 
 export const themeList = [
   {
-    name: 'default',
+    name: 'light',
     style: {
       body: {
         color: '#000',

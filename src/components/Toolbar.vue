@@ -3,24 +3,24 @@ import { currentThemeIndex, setTheme, themeList } from '@/components/reader'
 </script>
 
 <template>
-  <div id="toolbar" class="h-full w-full px-1 flex flex-row flex-nowrap items-center justify-between">
-    <div id="theme" class="flex flex-row flex-nowrap items-center">
+  <div id="toolbar" class="wh-f px-1 f-r-n items-center justify-between">
+    <div id="theme" class="f-r-n items-center">
       <div class="mr-1">
         Theme:
       </div>
       <template v-for="(theme, index) in themeList" :key="index">
         <div
-          :class="currentThemeIndex === index ? 'border-solid border-black border-1' : 'hover:border-dotted hover:border-black hover:border-1'"
-          class="w-8 h-8 flex flex-row flex-nowrap justify-center items-center cursor-pointer mr-1"
+          :class="currentThemeIndex === index ? 'border-1 border-black border-solid ' : 'hover:border-1 hover:border-black hover:border-dotted'"
+          class="w-8 h-8 f-c cursor-pointer mr-1"
           @click="setTheme(index)"
         >
-          <div class="w-4 h-4 border-solid border-black border-1 rounded-1px" :style="`background: ${theme.style.body.background}`" />
+          <div :class="`w-4 h-4 border-1 border-black border-solid rounded-1px bg-${theme.name}`" />
         </div>
       </template>
     </div>
-    <div class="i-mdi:plus-box-outline w-6 h-6" />
-    <div class="i-mdi:minus-box-outline w-6 h-6" />
-    <div class="i-mdi:plus-box w-6 h-6 hover:border hover:border-black hover:border-2" />
-    <div class="i-mdi:minus-box w-6 h-6" />
+    <div class="i-mdi:plus-box-outline" />
+    <div class="i-mdi:minus-box-outline" />
+    <div class="i-mdi:plus-box hover:border-1 hover:border-black hover:border-solid" />
+    <div class="i-mdi:minus-box" />
   </div>
 </template>

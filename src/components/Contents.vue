@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NavItem } from 'epubjs'
+import type { NavItem } from 'epubjs/types/navigation'
 import { contents, jump } from '@/components/reader'
 import Contents from '@/components/Contents.vue'
 

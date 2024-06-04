@@ -10,5 +10,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="reader" class="overflow-hidden w-full h-full" />
+  <div id="reader" class="overflow-hidden wh-f" />
 </template>
