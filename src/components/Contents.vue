@@ -13,7 +13,7 @@ const props = defineProps<{
   <div :class="isChild ? 'child-contents ml-3' : 'contents'">
     <template v-for="(content, index) in props.contents" :key="index">
       <div
-        class="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"
+        cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap
         :title="content.label" @click="jump(content.href)"
       >
         {{ content.label }}

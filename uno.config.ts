@@ -1,14 +1,10 @@
-import { defineConfig, presetIcons } from 'unocss'
+import { defineConfig, presetAttributify, presetIcons } from 'unocss'
 import presetUno from '@unocss/preset-uno'
-import { themeList } from './src/components/reader'
-
-const themeColors = {}
-for (const theme of themeList)
-  themeColors[`${theme.name}`] = theme.style.body.background
 
 export default defineConfig({
   presets: [
     presetUno(),
+    presetAttributify(),
     presetIcons({ scale: 1.5 }),
   ],
   shortcuts: [{
@@ -19,7 +15,6 @@ export default defineConfig({
   }],
   theme: {
     colors: {
-      ...themeColors,
     },
   },
 })
