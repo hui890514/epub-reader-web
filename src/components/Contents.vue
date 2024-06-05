@@ -26,10 +26,10 @@ function _jump(href: string, content: _NavItem) {
         </div>
         <div v-if="content.subitems?.length" i-d flex-shrink-0>
           <div
-            v-if="content.isCollapsed" class="i-mdi:keyboard-arrow-left" @click="collapse(content)"
+            v-if="content.isCollapsed" i-mdi:keyboard-arrow-left @click="collapse(content)"
           />
           <div
-            v-else class="i-mdi:keyboard-arrow-down" @click="collapse(content)"
+            v-else i-mdi:keyboard-arrow-down @click="collapse(content)"
           />
         </div>
       </div>

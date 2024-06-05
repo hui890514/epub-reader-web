@@ -27,7 +27,7 @@ function changeTheme(index: number) {
       :class="currentLayout === 'paginated' ? 'border-1 border-solid' : 'hover:border-1 hover:border-dotted active:border-solid'"
       @click="changeLayout('paginated')"
     >
-      <div class="i-mdi:book-open-page-variant-outline" c-t />
+      <div i-mdi:book-open-page-variant-outline c-t />
     </div>
   </div>
   <div id="theme" f-r-n items-center mb-3>
