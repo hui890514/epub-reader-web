@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { changeThemeVariable } from '@/helpers/theme'
 import { changeCurrentPage, currentFontsize, currentPage, currentPercentage, currentThemeIndex, setFontsize, setTheme, themeList, totalPage } from '@/helpers/reader'
+import { collapseAll } from '@/helpers/contents'
 
 function changeTheme(index: number) {
   changeThemeVariable(index)
@@ -26,6 +27,14 @@ document.addEventListener('keydown', (e) => {
 
 <template>
   <div id="toolbar" wh-f px-1 f-r-n items-center justify-between>
+    <div id="contents">
+      <div @click="collapseAll(true)">
+        collapse
+      </div>
+      <div @click="collapseAll(false)">
+        collapse
+      </div>
+    </div>
     <div id="theme" f-r-n items-center>
       <div mr-1 c-t>
         Theme:
