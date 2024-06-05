@@ -5,6 +5,7 @@ import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'
 import { getCurrentFontsize, getCurrentThemeIndex, setCurrentFontsize } from '@/helpers/storage'
 import { debounce } from '@/helpers/utils'
+import { type _NavItem, addIsCollapsed } from '@/helpers/contents'
 
 declare global{
   interface Window {
@@ -16,7 +17,7 @@ let rendition: Rendition
 let themes: Themes
 let locations: Locations
 export const bookLoading = ref(false)
-export const contents = ref<NavItem[]>()
+export const contents = ref<_NavItem[]>()
 
 export const totalPage = ref(0)
 export const currentPage = ref(1)
@@ -45,7 +46,7 @@ export function showEpub(url: string) {
   setTheme(getCurrentThemeIndex())
   setFontsize(getCurrentFontsize())
   book.ready.then(() => {
-    contents.value = book.navigation.toc
+    contents.value = addIsCollapsed(book.navigation.toc)
     book.locations.generate(150)
   }).then(() => {
     locations = book.locations
