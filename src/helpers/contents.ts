@@ -1,5 +1,4 @@
 import type { NavItem } from 'epubjs/types/navigation'
-import { ref } from 'vue'
 import { contents } from '@/helpers/reader'
 
 export interface _NavItem extends NavItem {
@@ -29,3 +28,5 @@ export function collapseAll(isCollapsed: boolean, _contents = contents.value) {
     }
   }
 }
+
+export type panelName = 'contents' | 'setting' | 'history'

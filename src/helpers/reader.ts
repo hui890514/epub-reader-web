@@ -28,7 +28,7 @@ function getCurrentLocation() {
 }
 const _getCurrentLocation = debounce(getCurrentLocation, 200)
 export function changeCurrentPage(page: number) {
-  if (page <= 0 || page >= totalPage.value)
+  if (page <= 0 || page > totalPage.value)
     return
   currentPage.value = page
   jump(page - 1)
