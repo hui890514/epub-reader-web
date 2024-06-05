@@ -122,3 +122,8 @@ export function setFontsize(fontsize = 18) {
   currentFontsize.value = fontsize
   _setFontsize(fontsize)
 }
+
+export function resize() {
+  // @ts-expect-error don't need parameters
+  return rendition.resize()
+}
