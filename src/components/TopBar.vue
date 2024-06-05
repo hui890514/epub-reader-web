@@ -23,17 +23,23 @@ function toggleFullScreen() {
       {{ currentPanel.toLocaleUpperCase() }}
     </div>
     <div f-r-n items-center>
-      <div v-show="currentPanel === 'contents'" i-d title="collapse all" @click="collapseAll(true)">
+      <div
+        v-show="currentPanel === 'contents'" i-d title="collapse all" class="class-for-vim"
+        @click="collapseAll(true)"
+      >
         <div i-mdi:collapse-all-outline c-t />
       </div>
-      <div v-show="currentPanel === 'contents'" i-d title="expand all" @click="collapseAll(false)">
+      <div
+        v-show="currentPanel === 'contents'" i-d title="expand all" class="class-for-vim"
+        @click="collapseAll(false)"
+      >
         <div i-mdi:expand-all-outline c-t />
       </div>
       <div i-d title="full screen" @click="toggleFullScreen">
         <div v-if="!isFullScreen" i-mdi:fullscreen c-t />
         <div v-else i-mdi:fullscreen-exit c-t />
       </div>
-      <div i-d title="hidden" @click="$emit('toggleContentsHidden')">
+      <div i-d title="hidden" class="class-for-vim" @click="$emit('toggleContentsHidden')">
         <div v-if="!isContentsHidden" i-mdi:menu-open c-t />
       </div>
     </div>

@@ -48,13 +48,13 @@ function changeTheme(index: number) {
     <div c-t w-20>
       Fontsize:
     </div>
-    <div i-d @click="setFontsize(currentFontsize - 2)">
+    <div i-d class="class-for-vim" @click="setFontsize(currentFontsize - 2)">
       <div i-mdi:minus-box-outline c-t />
     </div>
     <div c-t w-8 f-c>
       {{ currentFontsize }}
     </div>
-    <div i-d @click="setFontsize(currentFontsize + 2)">
+    <div i-d class="class-for-vim" @click="setFontsize(currentFontsize + 2)">
       <div i-mdi:plus-box-outline c-t />
     </div>
   </div>

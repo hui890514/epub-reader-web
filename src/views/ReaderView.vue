@@ -46,7 +46,10 @@ onUnmounted(() => unregisterKeyboardEvents())
     </div>
     <div flex-1 overflow-hidden position-relative>
       <Reader />
-      <div v-if="isContentsHidden" i-d title="show contents" position-absolute top-0.5 left-0.5 hover:bg-t-b @click="toggleContentsHidden">
+      <div
+        v-if="isContentsHidden" i-d title="show contents" position-absolute top-0.5 left-0.5 hover:bg-t-b
+        class="class-for-vim" @click="toggleContentsHidden"
+      >
         <div i-mdi:menu-close c-t />
       </div>
     </div>

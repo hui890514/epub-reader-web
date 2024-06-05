@@ -37,7 +37,7 @@ defineEmits(['switchPanel'])
     <div id="line" border-0 border-r-2 border-solid border-t />
     <div f-r-n items-center justify-end c-t p-1>
       <div id="page" f-r-n items-center justify-center w-30>
-        <div i-d @click="changeCurrentPage(currentPage - 1)">
+        <div i-d class="class-for-vim" @click="changeCurrentPage(currentPage - 1)">
           <div i-mdi:chevron-double-left c-t />
         </div>
         <div c-t ml-1>
@@ -49,7 +49,7 @@ defineEmits(['switchPanel'])
         <div c-t mr-1>
           {{ totalPage }}
         </div>
-        <div i-d @click="changeCurrentPage(currentPage + 1)">
+        <div i-d class="class-for-vim" @click="changeCurrentPage(currentPage + 1)">
           <div i-mdi:chevron-double-right c-t />
         </div>
       </div>
