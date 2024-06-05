@@ -19,7 +19,7 @@ export const bookLoading = ref(false)
 export const contents = ref<NavItem[]>()
 
 export const totalPage = ref(0)
-export const currentPage = ref(2)
+export const currentPage = ref(1)
 export const currentPercentage = ref(0)
 function getCurrentLocation() {
   currentPage.value = rendition.location?.start.index + 1
@@ -38,7 +38,7 @@ export function showEpub(url: string) {
   bookLoading.value = false
   const book = ePub(url)
   rendition = book.renderTo('reader', { flow: 'scrolled', width: '100%', height: '100%' })
-  rendition.display()
+  rendition.display(0)
   window.book = book
   themes = rendition.themes
   registerThemes()
