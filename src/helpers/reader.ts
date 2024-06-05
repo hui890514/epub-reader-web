@@ -1,5 +1,4 @@
 import ePub, { type Book, type Rendition } from 'epubjs'
-import type { NavItem } from 'epubjs/types/navigation'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'

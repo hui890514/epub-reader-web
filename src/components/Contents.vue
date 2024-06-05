@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { contents, jump } from '@/helpers/reader'
+import { jump } from '@/helpers/reader'
 import Contents from '@/components/Contents.vue'
 import { type _NavItem, collapse } from '@/helpers/contents'
 
