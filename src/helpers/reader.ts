@@ -137,3 +137,10 @@ export function resize() {
   // @ts-expect-error don't need parameters
   return rendition.resize()
 }
+
+export function prev() {
+  rendition.prev()
+}
+export function next() {
+  rendition.next()
+}

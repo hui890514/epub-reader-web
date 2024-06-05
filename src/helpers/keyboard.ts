@@ -1,10 +1,12 @@
-import { changeCurrentPage, currentPage } from '@/helpers/reader'
+import { changeCurrentPage, currentLayout, currentPage, next, prev } from '@/helpers/reader'
 
 function handleKeyboardEvent(e: KeyboardEvent) {
+  if (currentLayout.value === 'scrolled')
+    return
   if (e.key === 'ArrowLeft')
-    changeCurrentPage(currentPage.value - 1)
+    prev()
   else if (e.key === 'ArrowRight')
-    changeCurrentPage(currentPage.value + 1)
+    next()
 }
 
 export function registerKeyboardEvents() {
