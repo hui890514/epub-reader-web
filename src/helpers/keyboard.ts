@@ -1,4 +1,4 @@
-import { changeCurrentPage, currentLayout, currentPage, next, prev } from '@/helpers/reader'
+import { currentLayout, next, prev } from '@/helpers/reader'
 
 function handleKeyboardEvent(e: KeyboardEvent) {
   if (currentLayout.value === 'scrolled')
