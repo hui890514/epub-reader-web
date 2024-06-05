@@ -15,6 +15,13 @@ function toggleFullScreen() {
     ? document.documentElement.requestFullscreen()
     : document.exitFullscreen()
 }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft')
+    changeCurrentPage(currentPage.value - 1)
+  else if (e.key === 'ArrowRight')
+    changeCurrentPage(currentPage.value + 1)
+})
 </script>
 
 <template>
