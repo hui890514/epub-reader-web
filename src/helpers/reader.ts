@@ -2,7 +2,7 @@ import ePub, { type Book, type Rendition } from 'epubjs'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'
-import { getCurrentFontsize, getCurrentThemeIndex, setCurrentFontsize } from '@/helpers/storage'
+import { getCurrentFontsize, getCurrentLayout, getCurrentThemeIndex, setCurrentFontsize, setCurrentLayout, setCurrentThemeIndex } from '@/helpers/storage'
 import { debounce } from '@/helpers/utils'
 import { type _NavItem, addIsCollapsed } from '@/helpers/contents'
 
@@ -34,10 +34,19 @@ export function changeCurrentPage(page: number) {
   jump(page - 1)
 }
 
+export type Layout = 'scrolled' | 'paginated'
+export const currentLayout = ref(getCurrentLayout())
+export function changeLayout(layout: Layout) {
+  if (currentLayout.value !== layout) {
+    setCurrentLayout(currentLayout.value = layout)
+    rendition.flow(layout)
+  }
+}
+
 export function showEpub(url: string) {
   bookLoading.value = false
   const book = ePub(url)
-  rendition = book.renderTo('reader', { flow: 'scrolled', width: '100%', height: '100%' })
+  rendition = book.renderTo('reader', { flow: currentLayout.value, width: '100%', height: '100%', spread: 'none' })
   rendition.display(0)
   window.book = book
   themes = rendition.themes
@@ -100,26 +109,27 @@ export const themeList = [
     },
   },
 ]
-export const currentThemeIndex = ref(0)
+export const currentThemeIndex = ref(-1)
 function registerThemes() {
   themeList.forEach((theme) => {
     themes.register(theme.name, theme.style)
   })
 }
-export function setTheme(index = 0) {
-  currentThemeIndex.value = index
-  themes.select(themeList[index].name)
+export function setTheme(index: number) {
+  if (index >= 0 && index < themeList.length && currentThemeIndex.value !== index) {
+    setCurrentThemeIndex(currentThemeIndex.value = index)
+    themes.select(themeList[index].name)
+  }
 }
 
 const _setFontsize = debounce((fontsize: number) => {
   themes.fontSize(`${fontsize}px`)
 }, 200)
-export const currentFontsize = ref(18)
-export function setFontsize(fontsize = 18) {
-  if (fontsize <= 0)
+export const currentFontsize = ref(0)
+export function setFontsize(fontsize: number) {
+  if (fontsize <= 0 && currentFontsize.value !== fontsize)
     return
-  setCurrentFontsize(fontsize)
-  currentFontsize.value = fontsize
+  setCurrentFontsize(currentFontsize.value = fontsize)
   _setFontsize(fontsize)
 }
 
