@@ -3,17 +3,17 @@ import { contents } from '@/helpers/reader'
 
 export interface _NavItem extends NavItem {
   isCollapsed?: boolean
+  _href: string
   subitems: _NavItem[]
 }
 
-export function addIsCollapsed(contents: NavItem[]) {
+function addIsCollapsed(contents: NavItem[]) {
   for (const content of contents as _NavItem[]) {
     if (content.subitems?.length) {
       content.isCollapsed = false
       addIsCollapsed(content.subitems)
     }
   }
-  return contents as _NavItem[]
 }
 
 export function collapse(content: _NavItem) {
@@ -32,3 +32,21 @@ export function collapseAll(isCollapsed: boolean, _contents = contents.value) {
 }
 
 export type panelName = 'contents' | 'setting' | 'history'
+
+function handleHref(href: string) {
+  return href.split('#')[0]
+}
+
+export function addHref(contents: NavItem[]) {
+  for (const content of contents as _NavItem[]) {
+    content._href = handleHref(content.href)
+    if (content.subitems?.length)
+      addHref(content.subitems)
+  }
+}
+
+export function handleContents(contents: NavItem[]) {
+  addIsCollapsed (contents)
+  addHref(contents)
+  return contents as _NavItem[]
+}

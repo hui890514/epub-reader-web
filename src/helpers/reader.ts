@@ -4,7 +4,7 @@ import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'
 import { getCurrentFontsize, getCurrentThemeIndex, setCurrentFontsize, setCurrentThemeIndex } from '@/helpers/storage'
 import { debounce } from '@/helpers/utils'
-import { type _NavItem, addIsCollapsed } from '@/helpers/contents'
+import { type _NavItem, handleContents } from '@/helpers/contents'
 
 declare global{
   interface Window {
@@ -32,6 +32,7 @@ export const totalPage = ref(0)
 export const currentPage = ref(1)
 export const currentPercentage = ref(0)
 export const metadata = ref<Metadata>()
+export const currentContent = ref<string>()
 
 function getCurrentLocation() {
   currentPage.value = rendition.location?.start.index + 1
@@ -40,6 +41,7 @@ function getCurrentLocation() {
   if ((percentage === 0 && currentPage.value !== 1) || (percentage === 1 && currentPage.value !== totalPage.value))
     percentage = currentPage.value / totalPage.value
   currentPercentage.value = percentage
+  currentContent.value = rendition.location?.end.href
 }
 const _getCurrentLocation = debounce(getCurrentLocation, 200)
 
@@ -54,8 +56,7 @@ export function showEpub(url: string) {
   setTheme(getCurrentThemeIndex())
   setFontsize(getCurrentFontsize())
   book.ready.then(() => {
-    contents.value = addIsCollapsed(book.navigation.toc)
-    //
+    contents.value = handleContents(book.navigation.toc)
     setMetadata(book.package.metadata)
     book.locations.generate(150)
   }).then(() => {
