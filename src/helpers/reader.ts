@@ -27,12 +27,6 @@ function getCurrentLocation() {
   currentPercentage.value = rendition.location?.end.percentage
 }
 const _getCurrentLocation = debounce(getCurrentLocation, 200)
-export function changeCurrentPage(page: number) {
-  if (page <= 0 || page > totalPage.value)
-    return
-  currentPage.value = page
-  jump(page - 1)
-}
 
 export function showEpub(url: string) {
   bookLoading.value = false
@@ -133,4 +127,17 @@ export function handleHref(href: string) {
   if (href.startsWith('../'))
     return href.replace('../', '')
   return href
+}
+
+export function changeCurrentPage(page: number) {
+  if (page <= 0 || page > totalPage.value || currentPage.value === page)
+    return
+  currentPage.value = page
+  jump(page - 1)
+}
+export function prevPage() {
+  changeCurrentPage(currentPage.value - 1)
+}
+export function nextPage() {
+  changeCurrentPage(currentPage.value + 1)
 }
