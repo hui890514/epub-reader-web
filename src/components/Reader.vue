@@ -2,8 +2,8 @@
 import { onMounted } from 'vue'
 import { showEpub } from '@/helpers/reader'
 
-// const url = '/The Almanack of Naval Ravikant.epub'
-const url = '33.epub'
+// const url = '1.epub'
+const url = '2.epub'
 
 onMounted(() => {
   showEpub(url)

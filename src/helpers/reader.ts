@@ -144,3 +144,9 @@ export function prev() {
 export function next() {
   rendition.next()
 }
+
+export function handleHref(href: string) {
+  if (href.startsWith('../'))
+    return href.replace('../', '')
+  return href
+}

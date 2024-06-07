@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { jump } from '@/helpers/reader'
+import { handleHref, jump } from '@/helpers/reader'
 import Contents from '@/components/Contents.vue'
 import { type _NavItem, collapse } from '@/helpers/contents'
 
@@ -10,7 +10,7 @@ const props = defineProps<{
 
 function _jump(href: string, content: _NavItem) {
   content.isCollapsed === true && collapse(content)
-  jump(href)
+  jump(handleHref(href))
 }
 </script>
 
