@@ -78,7 +78,7 @@ const isPageIconBorderHidden = ref(false)
       >
         <div
           class="class-for-vim page-icon" invisible w-8 h-8 f-c cursor-pointer
-          border-1 border-dotted border-t active:border-solid 
+          border-1 border-dotted border-t active:border-solid
         >
           <div i-mdi:chevron-double-right c-t />
         </div>
@@ -94,7 +94,7 @@ const isPageIconBorderHidden = ref(false)
 .page-wrapper:hover > div {
   visibility: visible;
 }
-.page-wrapper:active .page-icon{
-	border-style: solid;
+.page-wrapper:active .page-icon {
+  border-style: solid;
 }
 </style>
