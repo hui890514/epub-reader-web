@@ -24,7 +24,10 @@ export const currentPercentage = ref(0)
 function getCurrentLocation() {
   currentPage.value = rendition.location?.start.index + 1
   // @ts-expect-error percentage exists in fact
-  currentPercentage.value = rendition.location?.end.percentage
+  let percentage = rendition.location?.end.percentage
+  if ((percentage === 0 && currentPage.value !== 1) || (percentage === 1 && currentPage.value !== totalPage.value))
+    percentage = currentPage.value / totalPage.value
+  currentPercentage.value = percentage
 }
 const _getCurrentLocation = debounce(getCurrentLocation, 200)
 
