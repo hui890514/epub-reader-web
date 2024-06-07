@@ -8,8 +8,10 @@ export interface _NavItem extends NavItem {
 
 export function addIsCollapsed(contents: NavItem[]) {
   for (const content of contents as _NavItem[]) {
-    if (content.subitems?.length)
+    if (content.subitems?.length) {
       content.isCollapsed = false
+      addIsCollapsed(content.subitems)
+    }
   }
   return contents as _NavItem[]
 }
