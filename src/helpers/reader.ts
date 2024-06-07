@@ -8,7 +8,18 @@ import { type _NavItem, addIsCollapsed } from '@/helpers/contents'
 
 declare global{
   interface Window {
-    book: Book
+    book: _Book
+  }
+}
+
+interface Metadata {
+  title: string
+  id: string
+}
+
+interface _Book extends Book {
+  package: {
+    metadata: Metadata
   }
 }
 
@@ -17,10 +28,11 @@ let themes: Themes
 let locations: Locations
 export const bookLoading = ref(false)
 export const contents = ref<_NavItem[]>()
-
 export const totalPage = ref(0)
 export const currentPage = ref(1)
 export const currentPercentage = ref(0)
+export const metadata = ref<Metadata>()
+
 function getCurrentLocation() {
   currentPage.value = rendition.location?.start.index + 1
   // @ts-expect-error percentage exists in fact
@@ -33,7 +45,7 @@ const _getCurrentLocation = debounce(getCurrentLocation, 200)
 
 export function showEpub(url: string) {
   bookLoading.value = false
-  const book = ePub(url)
+  const book = ePub(url) as _Book
   rendition = book.renderTo('reader', { flow: 'scrolled', width: '100%', height: '100%', spread: 'none' })
   rendition.display(0)
   window.book = book
@@ -43,6 +55,8 @@ export function showEpub(url: string) {
   setFontsize(getCurrentFontsize())
   book.ready.then(() => {
     contents.value = addIsCollapsed(book.navigation.toc)
+    //
+    setMetadata(book.package.metadata)
     book.locations.generate(150)
   }).then(() => {
     locations = book.locations
@@ -143,4 +157,9 @@ export function prevPage() {
 }
 export function nextPage() {
   changeCurrentPage(currentPage.value + 1)
+}
+
+function setMetadata(data: Metadata) {
+  metadata.value = data
+  document.title = `Epub Reader | ${data.title}`
 }
