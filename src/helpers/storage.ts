@@ -1,5 +1,3 @@
-import type { Layout } from '@/helpers/reader'
-
 function setStorage(key: string, value: string) {
   localStorage.setItem(key, value)
 }
@@ -22,12 +20,4 @@ export function setCurrentFontsize(fontsize: number) {
 
 export function getCurrentFontsize() {
   return Number(getStorage('current-fontsize')) || 18
-}
-
-export function setCurrentLayout(layout: Layout) {
-  setStorage('current-layout', layout)
-}
-
-export function getCurrentLayout() {
-  return (getStorage('current-layout') || 'scrolled') as Layout
 }

@@ -2,7 +2,7 @@ import ePub, { type Book, type Rendition } from 'epubjs'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { ref } from 'vue'
-import { getCurrentFontsize, getCurrentLayout, getCurrentThemeIndex, setCurrentFontsize, setCurrentLayout, setCurrentThemeIndex } from '@/helpers/storage'
+import { getCurrentFontsize, getCurrentThemeIndex, setCurrentFontsize, setCurrentThemeIndex } from '@/helpers/storage'
 import { debounce } from '@/helpers/utils'
 import { type _NavItem, addIsCollapsed } from '@/helpers/contents'
 
@@ -34,19 +34,10 @@ export function changeCurrentPage(page: number) {
   jump(page - 1)
 }
 
-export type Layout = 'scrolled' | 'paginated'
-export const currentLayout = ref(getCurrentLayout())
-export function changeLayout(layout: Layout) {
-  if (currentLayout.value !== layout) {
-    setCurrentLayout(currentLayout.value = layout)
-    rendition.flow(layout)
-  }
-}
-
 export function showEpub(url: string) {
   bookLoading.value = false
   const book = ePub(url)
-  rendition = book.renderTo('reader', { flow: currentLayout.value, width: '100%', height: '100%', spread: 'none' })
+  rendition = book.renderTo('reader', { flow: 'scrolled', width: '100%', height: '100%', spread: 'none' })
   rendition.display(0)
   window.book = book
   themes = rendition.themes
@@ -136,13 +127,6 @@ export function setFontsize(fontsize: number) {
 export function resize() {
   // @ts-expect-error don't need parameters
   return rendition.resize()
-}
-
-export function prev() {
-  rendition.prev()
-}
-export function next() {
-  rendition.next()
 }
 
 export function handleHref(href: string) {
