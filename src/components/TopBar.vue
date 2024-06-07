@@ -39,7 +39,7 @@ function toggleFullScreen() {
         <div v-if="!isFullScreen" i-mdi:fullscreen c-t />
         <div v-else i-mdi:fullscreen-exit c-t />
       </div>
-      <div i-d title="hidden" class="class-for-vim" @click="$emit('toggleContentsHidden')">
+      <div i-d title="hidden contents" class="class-for-vim" @click="$emit('toggleContentsHidden')">
         <div v-if="!isContentsHidden" i-mdi:menu-open c-t />
       </div>
     </div>
