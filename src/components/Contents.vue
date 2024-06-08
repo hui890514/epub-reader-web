@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { watch } from 'vue'
 import { currentContent, handleHref, jump } from '@/helpers/reader'
 import Contents from '@/components/Contents.vue'
 import { type _NavItem, collapse, currentSubContent } from '@/helpers/contents'
@@ -19,6 +20,12 @@ function _collapse(e: MouseEvent, content: _NavItem) {
   e.stopPropagation()
   collapse(content)
 }
+
+watch(() => currentContent.value || currentSubContent.value, () => {
+  const dom = document.querySelector('.content-focus')
+  // @ts-expect-error scrollIntoViewIfNeeded
+  dom?.scrollIntoViewIfNeeded?.()
+})
 </script>
 
 <template>
@@ -27,7 +34,7 @@ function _collapse(e: MouseEvent, content: _NavItem) {
       <div
         f-r-n items-center justify-between h-10 c-t px-1 my-1
         border-1 border-dotted hover:border-t cursor-pointer
-        :class="(!isChild && currentContent === content._href) || (isChild && currentSubContent === content.href) ? 'border-t border-solid' : 'border-t-b'"
+        :class="(!isChild && currentContent === content._href) || (isChild && currentSubContent === content.href) ? 'content-focus border-t border-solid' : 'border-t-b'"
         @click="_jump(content)"
       >
         <div
