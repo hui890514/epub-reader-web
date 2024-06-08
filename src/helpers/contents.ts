@@ -122,7 +122,7 @@ function changeCurrentSubContent(href: string, cfi: string) {
     else
       break
   }
-  _i >= 0 && (currentSubContent.value = `${currentContent.value}#${subContentsKeys[_i]}`)
+  currentSubContent.value = _i >= 0 ? `${currentContent.value}#${subContentsKeys[_i]}` : ''
 }
 
 function handleCfi(cfi: string) {
