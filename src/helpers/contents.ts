@@ -1,5 +1,5 @@
 import type { NavItem } from 'epubjs/types/navigation'
-import { contents } from '@/helpers/reader'
+import { handleHref as _handleHref, contents } from '@/helpers/reader'
 
 export interface _NavItem extends NavItem {
   isCollapsed?: boolean
@@ -39,7 +39,7 @@ function handleHref(href: string) {
 
 export function addHref(contents: NavItem[]) {
   for (const content of contents as _NavItem[]) {
-    content._href = handleHref(content.href)
+    content._href = _handleHref(handleHref(content.href))
     if (content.subitems?.length)
       addHref(content.subitems)
   }
