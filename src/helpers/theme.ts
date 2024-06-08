@@ -1,4 +1,35 @@
-import { themeList } from '@/helpers/reader'
+export const themeList = [
+  {
+    name: 'light',
+    style: {
+      body: {
+        color: '#000',
+        background: '#fff',
+        padding: '0 12px 30px 12px !important',
+      },
+    },
+  },
+  {
+    name: 'eye',
+    style: {
+      body: {
+        color: '#000',
+        background: '#ceeaba',
+        padding: '0 12px 30px 12px !important',
+      },
+    },
+  },
+  {
+    name: 'night',
+    style: {
+      body: {
+        color: '#fff',
+        background: '#000',
+        padding: '0 12px 30px 12px !important',
+      },
+    },
+  },
+]
 
 const rootStyle = document.documentElement.style
 

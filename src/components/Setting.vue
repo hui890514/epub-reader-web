@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { changeThemeVariable } from '@/helpers/theme'
-import { currentFontsize, currentThemeIndex, setFontsize, setTheme, themeList } from '@/helpers/reader'
+import { changeThemeVariable, themeList } from '@/helpers/theme'
+import { currentFontsize, currentThemeIndex, setFontsize, setTheme } from '@/helpers/reader'
 
 function changeTheme(index: number) {
   changeThemeVariable(index)

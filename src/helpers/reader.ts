@@ -2,6 +2,7 @@ import ePub, { type Book, type Rendition } from 'epubjs'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { nextTick, ref, watch } from 'vue'
+import { themeList } from './theme'
 import { getCurrentFontsize, getCurrentThemeIndex, setCurrentFontsize, setCurrentThemeIndex } from '@/helpers/storage'
 import { debounce } from '@/helpers/utils'
 import { type _NavItem, handleContents, handleSubContents } from '@/helpers/contents'
@@ -82,38 +83,6 @@ export function jumpByProgress(progress = 0) {
   jump(location)
 }
 
-export const themeList = [
-  {
-    name: 'light',
-    style: {
-      body: {
-        color: '#000',
-        background: '#fff',
-        padding: '0 12px 30px 12px !important',
-      },
-    },
-  },
-  {
-    name: 'eye',
-    style: {
-      body: {
-        color: '#000',
-        background: '#ceeaba',
-        padding: '0 12px 30px 12px !important',
-      },
-    },
-  },
-  {
-    name: 'night',
-    style: {
-      body: {
-        color: '#fff',
-        background: '#000',
-        padding: '0 12px 30px 12px !important',
-      },
-    },
-  },
-]
 export const currentThemeIndex = ref(-1)
 function registerThemes() {
   themeList.forEach((theme) => {
