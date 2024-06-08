@@ -1,10 +1,10 @@
 import ePub, { type Book, type Rendition } from 'epubjs'
 import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
-import { ref } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import { getCurrentFontsize, getCurrentThemeIndex, setCurrentFontsize, setCurrentThemeIndex } from '@/helpers/storage'
 import { debounce } from '@/helpers/utils'
-import { type _NavItem, handleContents } from '@/helpers/contents'
+import { type _NavItem, handleContents, handleSubContents } from '@/helpers/contents'
 
 declare global{
   interface Window {
@@ -35,13 +35,15 @@ export const metadata = ref<Metadata>()
 export const currentContent = ref<string>()
 
 function getCurrentLocation() {
-  currentPage.value = rendition.location?.start.index + 1
+  const start = rendition.location?.start
+  const end = rendition.location?.end
+  currentPage.value = start.index + 1
   // @ts-expect-error percentage exists in fact
-  let percentage = rendition.location?.end.percentage
+  let percentage = end.percentage
   if ((percentage === 0 && currentPage.value !== 1) || (percentage === 1 && currentPage.value !== totalPage.value))
     percentage = currentPage.value / totalPage.value
   currentPercentage.value = percentage
-  currentContent.value = rendition.location?.end.href
+  handleSubContents(currentContent.value = start.href, start.cfi)
 }
 const _getCurrentLocation = debounce(getCurrentLocation, 200)
 

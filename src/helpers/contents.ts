@@ -1,5 +1,6 @@
 import type { NavItem } from 'epubjs/types/navigation'
-import { handleHref as _handleHref, contents } from '@/helpers/reader'
+import { ref, watch } from 'vue'
+import { handleHref as _handleHref, contents, currentContent, currentPage } from '@/helpers/reader'
 
 export interface _NavItem extends NavItem {
   isCollapsed?: boolean
@@ -7,13 +8,8 @@ export interface _NavItem extends NavItem {
   subitems: _NavItem[]
 }
 
-function addIsCollapsed(contents: NavItem[]) {
-  for (const content of contents as _NavItem[]) {
-    if (content.subitems?.length) {
-      content.isCollapsed = false
-      addIsCollapsed(content.subitems)
-    }
-  }
+function addIsCollapsed(content: _NavItem) {
+  content.isCollapsed = false
 }
 
 export function collapse(content: _NavItem) {
@@ -37,16 +33,102 @@ function handleHref(href: string) {
   return href.split('#')[0]
 }
 
-export function addHref(contents: NavItem[]) {
-  for (const content of contents as _NavItem[]) {
-    content._href = _handleHref(handleHref(content.href))
-    if (content.subitems?.length)
-      addHref(content.subitems)
-  }
+function handleHref2(href: string) {
+  return href.split('#')[1]
+}
+
+export function addHref(content: _NavItem) {
+  content._href = _handleHref(handleHref(content.href))
 }
 
 export function handleContents(contents: NavItem[]) {
-  addIsCollapsed (contents)
-  addHref(contents)
+  for (const content of contents as _NavItem[]) {
+    addHref(content)
+    if (content.subitems?.length) {
+      addIsCollapsed(content)
+      handleSubContentsMap(content)
+      handleContents(content.subitems)
+    }
+  }
   return contents as _NavItem[]
+}
+
+interface SubContentsMap {
+  [key: string]: {
+    isCalculated: boolean
+    items: {
+      [key: string]: number
+    }
+  }
+}
+const subContentsMap: SubContentsMap = {}
+function handleSubContentsMap(content: _NavItem) {
+  const items: SubContentsMap['key']['items'] = {}
+  content.subitems.forEach((subContent) => {
+    items[handleHref2(subContent.href)] = -1
+  })
+  subContentsMap[content._href] = { isCalculated: false, items }
+}
+
+export function handleSubContents(href: string | undefined, cfi: string) {
+  if (!href || !cfi)
+    return
+  if (subContentsMap[href] && !subContentsMap[href].isCalculated) {
+    setTimeout(() => {
+      calculateSubContent(href)
+      subContentsMap[href].isCalculated = true
+      changeCurrentSubContent(href, cfi)
+    }, 100)
+  }
+  else {
+    changeCurrentSubContent(href, cfi)
+  }
+}
+
+function calculateSubContent(href: string) {
+  const srcdoc = document.querySelector('iframe')?.srcdoc
+  if (!srcdoc)
+    return
+  const dom = document.createElement('html')
+  dom.innerHTML = srcdoc
+  const subContents = subContentsMap[href].items
+  let parentNode: Element | undefined
+  let parentNodeArray: Array<Element> = []
+  for (const subContent of Object.keys(subContents)) {
+    if (!parentNode) {
+      parentNode = (dom.querySelector(`#${subContent}`)?.parentNode) as Element
+      parentNodeArray = Array.prototype.slice.call(parentNode.childNodes)
+    }
+    if (parentNode) {
+      const node = parentNode.querySelector(`#${subContent}`)
+      node && (subContents[subContent] = parentNodeArray.indexOf(node) + 1)
+    }
+  }
+}
+export const currentSubContent = ref('')
+function changeCurrentSubContent(href: string, cfi: string) {
+  const subContentsObj = subContentsMap[href]
+  if (!subContentsObj || !subContentsObj.isCalculated) {
+    currentSubContent.value = ''
+    return
+  }
+  const subContents = subContentsObj.items
+  const subContentsKeys = Object.keys(subContents)
+  const i = handleCfi(cfi)
+  let _i: number = -1
+  for (const [index, subContent] of subContentsKeys.entries()) {
+    if (subContents[subContent] <= i + 2)
+      _i = index
+    else
+      break
+  }
+  _i >= 0 && (currentSubContent.value = `${currentContent.value}#${subContentsKeys[_i]}`)
+}
+
+function handleCfi(cfi: string) {
+  // epubcfi(/6/22[Eric-Jorgenson_The-Almanack-of-Naval-Ravikant_PRODUCTION_v102-9]
+  // !/4[Eric-Jorgenson_The-Almanack-of-Naval-Ravikant_PRODUCTION_v102-9]
+  // /2[_idContainer018]/16/1:290)
+  // => 2
+  return Number(cfi.split('/')[5]?.split('[')[0])
 }

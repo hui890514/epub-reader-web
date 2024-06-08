@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { currentContent, handleHref, jump } from '@/helpers/reader'
 import Contents from '@/components/Contents.vue'
-import { type _NavItem, collapse } from '@/helpers/contents'
+import { type _NavItem, collapse, currentSubContent } from '@/helpers/contents'
 
 const props = defineProps<{
   contents: _NavItem[] | undefined
@@ -11,6 +11,7 @@ const props = defineProps<{
 function _jump(content: _NavItem) {
   content.isCollapsed === true && collapse(content)
   currentContent.value = content._href
+  currentSubContent.value = content.parent ? content.href : ''
   jump(handleHref(content.href))
 }
 
@@ -26,7 +27,7 @@ function _collapse(e: MouseEvent, content: _NavItem) {
       <div
         f-r-n items-center justify-between h-10 c-t px-1 my-1
         border-1 border-dotted hover:border-t cursor-pointer
-        :class="!isChild && currentContent === content._href ? 'border-t border-solid' : 'border-t-b'"
+        :class="(!isChild && currentContent === content._href) || (isChild && currentSubContent === content.href) ? 'border-t border-solid' : 'border-t-b'"
         @click="_jump(content)"
       >
         <div
