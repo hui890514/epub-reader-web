@@ -19,7 +19,7 @@ function toggleFullScreen() {
 
 <template>
   <div>
-    <div c-t>
+    <div c-t pl-1>
       {{ currentPanel.toLocaleUpperCase() }}
     </div>
     <div f-r-n items-center>
