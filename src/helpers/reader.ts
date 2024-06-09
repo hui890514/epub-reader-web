@@ -48,9 +48,10 @@ function getCurrentLocation() {
 }
 const _getCurrentLocation = debounce(getCurrentLocation, 200)
 
-export function showEpub(url: string) {
+export function showEpub(input: string | Blob) {
   bookLoading.value = false
-  const book = ePub(url) as _Book
+  // @ts-expect-error input may be the blob type
+  const book = ePub(input) as _Book
   rendition = book.renderTo('reader', { flow: 'scrolled', width: '100%', height: '100%', spread: 'none' })
   rendition.display(0)
   window.book = book

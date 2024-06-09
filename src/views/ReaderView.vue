@@ -5,6 +5,7 @@ import BottomBar from '@/components/BottomBar.vue'
 import Setting from '@/components/Setting.vue'
 import TopBar from '@/components/TopBar.vue'
 import Reader from '@/components/Reader.vue'
+import History from '@/components/History.vue'
 import { contents, nextPage, prevPage, resize } from '@/helpers/reader'
 import { registerKeyboardEvents, unregisterKeyboardEvents } from '@/helpers/keyboard'
 import type { panelName } from '@/helpers/contents'
@@ -41,6 +42,7 @@ const isPageIconBorderHidden = ref(false)
       <div flex-1 overflow-auto p-1 class="contents-wrapper">
         <Contents v-show="currentPanel === 'contents'" :contents="contents" />
         <Setting v-if="currentPanel === 'setting'" />
+        <History v-else-if="currentPanel === 'history'" />
       </div>
       <BottomBar
         h-10 border-0 border-t-2 border-solid border-t f-r-n justify-between
