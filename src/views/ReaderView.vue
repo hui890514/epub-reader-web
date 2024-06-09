@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { nextTick, onUnmounted, ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 import Contents from '@/components/Contents.vue'
 import BottomBar from '@/components/BottomBar.vue'
 import Setting from '@/components/Setting.vue'
 import TopBar from '@/components/TopBar.vue'
 import Reader from '@/components/Reader.vue'
 import History from '@/components/History.vue'
-import { resize } from '@/helpers/reader'
 import { contents, isContentsHidden, setContentsHidden } from '@/helpers/contents'
-import { nextPage, prevPage, setCurrentPage } from '@/helpers/page'
+import { nextPage, prevPage } from '@/helpers/page'
 import { currentPanel } from '@/helpers/panel'
 import { registerKeyboardEvents, unregisterKeyboardEvents } from '@/helpers/keyboard'
 

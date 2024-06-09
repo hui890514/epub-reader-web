@@ -1,13 +1,9 @@
 import ePub, { type Book, type Rendition } from 'epubjs'
-import type Locations from 'epubjs/types/locations'
-import type Themes from 'epubjs/types/themes'
-import { nextTick, ref, watch } from 'vue'
-import { registerThemes, setFontsize, setTheme, themeList } from './theme'
+import { ref } from 'vue'
+import { registerThemes, setFontsize, setTheme } from './theme'
 import { type Metadata, setMetadata } from './metadata'
 import { getCurrentLocation, setTotalPage } from './page'
-import { getStorageCurrentFontsize, getStorageCurrentThemeIndex, setStorageCurrentFontsize, setStorageCurrentThemeIndex } from '@/helpers/storage'
-import { debounce } from '@/helpers/utils'
-import { type _NavItem, contents, setContents } from '@/helpers/contents'
+import { setContents } from '@/helpers/contents'
 
 interface _Book extends Book {
   package: {

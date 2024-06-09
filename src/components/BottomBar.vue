@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { currentPage, currentPercentage, nextPage, prevPage, setCurrentPage, totalPage } from '@/helpers/page'
+import { currentPage, currentPercentage, nextPage, prevPage, totalPage } from '@/helpers/page'
 import { currentPanel, setCurrentPanel } from '@/helpers/panel'
 </script>
 

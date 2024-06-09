@@ -1,5 +1,5 @@
 import type { NavItem } from 'epubjs/types/navigation'
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, ref } from 'vue'
 import { resize } from './reader'
 import { setSubContentsMap } from './subContents'
 
