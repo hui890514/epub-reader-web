@@ -1,4 +1,4 @@
-import { nextPage, prevPage } from './reader'
+import { nextPage, prevPage } from './page'
 
 function handleKeyboardEvent(e: KeyboardEvent) {
   if (e.key === 'ArrowLeft')

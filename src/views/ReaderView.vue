@@ -6,7 +6,9 @@ import Setting from '@/components/Setting.vue'
 import TopBar from '@/components/TopBar.vue'
 import Reader from '@/components/Reader.vue'
 import History from '@/components/History.vue'
-import { changeCurrentPage, contents, nextPage, prevPage, resize } from '@/helpers/reader'
+import { contents, resize } from '@/helpers/reader'
+import { nextPage, prevPage, setCurrentPage } from '@/helpers/page'
+
 import { registerKeyboardEvents, unregisterKeyboardEvents } from '@/helpers/keyboard'
 import type { panelName } from '@/helpers/contents'
 

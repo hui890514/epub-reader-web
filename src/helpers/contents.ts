@@ -1,6 +1,6 @@
 import type { NavItem } from 'epubjs/types/navigation'
 import { ref, watch } from 'vue'
-import { handleHref as _handleHref, contents, currentContent, currentPage } from '@/helpers/reader'
+import { handleHref as _handleHref, contents, currentContent } from '@/helpers/reader'
 
 export interface _NavItem extends NavItem {
   isCollapsed?: boolean

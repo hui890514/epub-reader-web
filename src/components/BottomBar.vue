@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { currentPage, currentPercentage, nextPage, prevPage, totalPage } from '@/helpers/reader'
+import { currentPage, currentPercentage, nextPage, prevPage, totalPage } from '@/helpers/page'
 import type { panelName } from '@/helpers/contents'
 
 defineProps<{ currentPanel: panelName }>()
