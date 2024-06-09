@@ -2,7 +2,8 @@
 import { watch } from 'vue'
 import { jump } from '@/helpers/reader'
 import Contents from '@/components/Contents.vue'
-import { type _NavItem, collapse, currentContent, currentSubContent } from '@/helpers/contents'
+import { type _NavItem, collapse, currentContent } from '@/helpers/contents'
+import { currentSubContent } from '@/helpers/subContents'
 
 const props = defineProps<{
   contents: _NavItem[] | undefined

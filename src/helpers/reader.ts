@@ -7,7 +7,7 @@ import { type Metadata, setMetadata } from './metadata'
 import { getCurrentLocation, setTotalPage } from './page'
 import { getStorageCurrentFontsize, getStorageCurrentThemeIndex, setStorageCurrentFontsize, setStorageCurrentThemeIndex } from '@/helpers/storage'
 import { debounce } from '@/helpers/utils'
-import { type _NavItem, contents, handleSubContents, setContents } from '@/helpers/contents'
+import { type _NavItem, contents, setContents } from '@/helpers/contents'
 
 interface _Book extends Book {
   package: {
