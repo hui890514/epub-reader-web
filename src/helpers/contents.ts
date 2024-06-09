@@ -1,7 +1,6 @@
 import type { NavItem } from 'epubjs/types/navigation'
-import { nextTick, ref } from 'vue'
-import { resize } from '@/helpers/reader'
-import { setSubContentsMap } from '@/helpers/subContents'
+import { nextTick, ref, watch } from 'vue'
+import { jump, resize } from '@/helpers/reader'
 
 export interface _NavItem extends NavItem {
   isCollapsed?: boolean
@@ -18,7 +17,6 @@ function _setContents(contents: NavItem[]) {
     addHref(content)
     if (content.subitems?.length) {
       addIsCollapsed(content)
-      setSubContentsMap(content)
       _setContents(content.subitems)
     }
   }
@@ -61,4 +59,10 @@ export function setContentsHidden(value: boolean, e?: MouseEvent) {
   e && e.stopPropagation()
   isContentsHidden.value = value
   nextTick(() => resize())
+}
+
+export function jumpByContent(content: _NavItem) {
+  content.isCollapsed === true && collapse(content)
+  currentContent.value = content._href
+  jump((content.href))
 }

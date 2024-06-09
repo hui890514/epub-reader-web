@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 import { showEpub } from '@/helpers/reader'
 
-const url = '4.epub'
+const url = '1.epub'
 
 onMounted(() => {
   showEpub(url)

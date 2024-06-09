@@ -3,7 +3,6 @@ import type { Rendition } from 'epubjs'
 import { jump } from '@/helpers/reader'
 import { currentContent } from '@/helpers/contents'
 import { debounce } from '@/helpers/utils'
-import { handleSubContents } from '@/helpers/subContents'
 
 export const totalPage = ref(0)
 export const currentPage = ref(1)
@@ -38,5 +37,5 @@ export const getCurrentLocation = debounce((rendition: Rendition) => {
   if ((percentage === 0 && currentPage.value !== 1) || (percentage === 1 && currentPage.value !== totalPage.value))
     percentage = currentPage.value / totalPage.value
   currentPercentage.value = percentage
-  handleSubContents(currentContent.value = start.href, start.cfi)
+  currentContent.value = start.href
 }, 200)

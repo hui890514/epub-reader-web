@@ -1,42 +1,41 @@
 <script setup lang="ts">
-import { watch } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import { jump } from '@/helpers/reader'
-import Contents from '@/components/Contents.vue'
-import { type _NavItem, collapse, currentContent } from '@/helpers/contents'
-import { currentSubContent } from '@/helpers/subContents'
+import SubContents from '@/components/SubContents.vue'
+import { type _NavItem, collapse, currentContent, jumpByContent } from '@/helpers/contents'
 
 const props = defineProps<{
   contents: _NavItem[] | undefined
-  isChild?: boolean
 }>()
-
-function _jump(content: _NavItem) {
-  content.isCollapsed === true && collapse(content)
-  currentContent.value = content._href
-  currentSubContent.value = content.parent ? content.href : ''
-  jump((content.href))
-}
 
 function _collapse(e: MouseEvent, content: _NavItem) {
   e.stopPropagation()
   collapse(content)
 }
 
-watch(() => currentContent.value || currentSubContent.value, () => {
-  const dom = document.querySelector('.content-focus')
-  // @ts-expect-error scrollIntoViewIfNeeded
-  dom?.scrollIntoViewIfNeeded?.()
+const parentContentFocusIndex = ref(-1)
+function focusParentContent(index: number) {
+  parentContentFocusIndex.value = index
+}
+
+watch(() => currentContent.value, () => {
+  parentContentFocusIndex.value = -1
+  nextTick(() => {
+    const doms = document.querySelectorAll('.content-focus')
+    // @ts-expect-error use scrollIntoViewIfNeeded
+    doms[doms.length - 1]?.scrollIntoViewIfNeeded?.()
+  })
 })
 </script>
 
 <template>
-  <div :class="isChild ? 'child-contents ml-3' : 'contents'">
+  <div class="contents-wrapper">
     <template v-for="(content, index) in props.contents" :key="index">
       <div
         f-r-n items-center justify-between h-10 c-t px-1 my-1
         border-1 border-dotted hover:border-t cursor-pointer
-        :class="(!isChild && currentContent === content._href) || (isChild && currentSubContent === content.href) ? 'content-focus border-t border-solid' : 'border-t-b'"
-        @click="_jump(content)"
+        :class="currentContent === content._href || parentContentFocusIndex === index ? 'content-focus border-t border-solid' : 'border-t-b'"
+        @click="jumpByContent(content)"
       >
         <div
           overflow-hidden text-ellipsis whitespace-nowrap c-t flex-1
@@ -49,16 +48,16 @@ watch(() => currentContent.value || currentSubContent.value, () => {
           <div v-else i-mdi:keyboard-arrow-down @click="e => _collapse(e, content)" />
         </div>
       </div>
-      <Contents
+      <SubContents
         v-if="content.subitems?.length" v-show="!content.isCollapsed"
-        :contents="content.subitems" :is-child="true"
+        :contents="content.subitems" :parent-index="index" @focus-parent-content="focusParentContent"
       />
     </template>
   </div>
 </template>
 
 <style scoped>
-.contents > div:first-child {
+.contents-wrapper > div:first-child {
   margin-top: 0;
 }
 </style>
