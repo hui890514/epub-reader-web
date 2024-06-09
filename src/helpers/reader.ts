@@ -3,6 +3,7 @@ import type Locations from 'epubjs/types/locations'
 import type Themes from 'epubjs/types/themes'
 import { nextTick, ref, watch } from 'vue'
 import { themeList } from './theme'
+import { type Metadata, setMetadata } from './metadata'
 import { getCurrentFontsize, getCurrentThemeIndex, setCurrentFontsize, setCurrentThemeIndex } from '@/helpers/storage'
 import { debounce } from '@/helpers/utils'
 import { type _NavItem, handleContents, handleSubContents } from '@/helpers/contents'
@@ -12,12 +13,6 @@ declare global{
     book: _Book
   }
 }
-
-interface Metadata {
-  title: string
-  id: string
-}
-
 interface _Book extends Book {
   package: {
     metadata: Metadata
@@ -32,7 +27,6 @@ export const contents = ref<_NavItem[]>()
 export const totalPage = ref(0)
 export const currentPage = ref(1)
 export const currentPercentage = ref(0)
-export const metadata = ref<Metadata>()
 export const currentContent = ref<string>()
 
 function getCurrentLocation() {
@@ -130,9 +124,4 @@ export function prevPage() {
 }
 export function nextPage() {
   changeCurrentPage(currentPage.value + 1)
-}
-
-function setMetadata(data: Metadata) {
-  metadata.value = data
-  document.title = `Epub Reader | ${data.title}`
 }
