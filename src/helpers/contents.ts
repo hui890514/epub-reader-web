@@ -1,12 +1,14 @@
 import type { NavItem } from 'epubjs/types/navigation'
 import { ref, watch } from 'vue'
-import { handleHref as _handleHref, contents, currentContent } from '@/helpers/reader'
 
 export interface _NavItem extends NavItem {
   isCollapsed?: boolean
   _href: string
   subitems: _NavItem[]
 }
+
+export const contents = ref<_NavItem[]>()
+export const currentContent = ref<string>()
 
 function addIsCollapsed(content: _NavItem) {
   content.isCollapsed = false
@@ -40,14 +42,17 @@ function handleHref2(href: string) {
 export function addHref(content: _NavItem) {
   content._href = _handleHref(handleHref(content.href))
 }
+export function setContents() {
+  contents.value = _handleContents(window.book.navigation.toc)
+}
 
-export function handleContents(contents: NavItem[]) {
+export function _handleContents(contents: NavItem[]) {
   for (const content of contents as _NavItem[]) {
     addHref(content)
     if (content.subitems?.length) {
       addIsCollapsed(content)
       handleSubContentsMap(content)
-      handleContents(content.subitems)
+      _handleContents(content.subitems)
     }
   }
   return contents as _NavItem[]
@@ -131,4 +136,10 @@ function handleCfi(cfi: string) {
   // /2[_idContainer018]/16/1:290)
   // => 2
   return Number(cfi.split('/')[5]?.split('[')[0])
+}
+
+export function _handleHref(href: string) {
+  if (href.startsWith('../'))
+    return href.replace('../', '')
+  return href
 }

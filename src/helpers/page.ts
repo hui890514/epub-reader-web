@@ -1,13 +1,13 @@
 import { ref } from 'vue'
 import type { Rendition } from 'epubjs'
-import { currentContent, jump } from './reader'
-import { handleSubContents } from './contents'
+import { jump } from './reader'
+import { currentContent, handleSubContents } from './contents'
 import { debounce } from './utils'
 
 export const totalPage = ref(0)
 export const currentPage = ref(1)
-export function setTotalPage(page: number) {
-  totalPage.value = page
+export function setTotalPage() {
+  totalPage.value = window.book.packaging.spine.length
 }
 export function setCurrentPage(page: number) {
   if (page <= 0 || page > totalPage.value || currentPage.value === page)

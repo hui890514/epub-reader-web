@@ -6,7 +6,7 @@ export interface Metadata {
 }
 
 export const metadata = ref<Metadata>()
-export function setMetadata(data: Metadata) {
-  metadata.value = data
-  document.title = `Epub Reader | ${data.title}`
+export function setMetadata() {
+  metadata.value = window.book.package.metadata
+  document.title = `Epub Reader | ${metadata.value.title}`
 }
