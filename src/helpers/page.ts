@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import type { Rendition } from 'epubjs'
+import { handleSubContents, subContentsMap } from './subContents'
 import { jump } from '@/helpers/reader'
 import { currentContent } from '@/helpers/contents'
 import { debounce } from '@/helpers/utils'
@@ -38,4 +39,5 @@ export const getCurrentLocation = debounce((rendition: Rendition) => {
     percentage = currentPage.value / totalPage.value
   currentPercentage.value = percentage
   currentContent.value = start.href
+  subContentsMap[start.href] && handleSubContents(start.href, start.cfi)
 }, 200)

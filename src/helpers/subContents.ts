@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { jump } from '@/helpers/reader'
 import { type _NavItem, currentContent } from '@/helpers/contents'
 
 interface SubContentsMap {
@@ -10,13 +11,15 @@ interface SubContentsMap {
   }
 }
 
-const subContentsMap: SubContentsMap = {}
+export const subContentsMap: SubContentsMap = {}
 export function setSubContentsMap(content: _NavItem) {
-  const items: SubContentsMap['key']['items'] = {}
-  content.subitems.forEach((subContent) => {
-    items[getPathTarget(subContent.href)] = -1
-  })
-  subContentsMap[content._href] = { isCalculated: false, items }
+  if (content._href === content.subitems[0]._href) {
+    const items: SubContentsMap['key']['items'] = {}
+    content.subitems.forEach((subContent) => {
+      items[getPathTarget(subContent.href)] = -1
+    })
+    subContentsMap[content._href] = { isCalculated: false, items }
+  }
 }
 function getPathTarget(href: string) {
   return href.split('#')[1]
@@ -81,4 +84,10 @@ function getIndexByCfi(cfi: string) {
   // /2[_idContainer018]/16/1:290)
   // => 2
   return Number(cfi.split('/')[5]?.split('[')[0])
+}
+
+export function jumpBySubContent(content: _NavItem) {
+  currentContent.value = content._href
+  subContentsMap[content._href] && (currentSubContent.value = content.href)
+  jump(content.href)
 }

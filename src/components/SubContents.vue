@@ -3,6 +3,7 @@ import { type Ref, watch } from 'vue'
 import { jump } from '@/helpers/reader'
 import Contents from '@/components/Contents.vue'
 import { type _NavItem, collapse, currentContent, jumpByContent } from '@/helpers/contents'
+import { currentSubContent, jumpBySubContent, subContentsMap } from '@/helpers/subContents'
 
 const props = defineProps<{
   contents: _NavItem[] | undefined
@@ -11,6 +12,22 @@ const props = defineProps<{
 const emit = defineEmits<{
   focusParentContent: [index: number]
 }>()
+
+function isFocused(content: _NavItem) {
+  if (subContentsMap[content._href]) {
+    if (currentSubContent.value === content.href && currentContent.value === content._href)
+      return 'sub-content-focus border-t border-solid'
+    else
+      return 'border-t-b'
+  }
+  else if (currentContent.value === content._href) {
+    emit('focusParentContent', props.parentIndex)
+    return 'sub-content-focus border-t border-solid'
+  }
+  else {
+    return 'border-t-b'
+  }
+}
 </script>
 
 <template>
@@ -19,8 +36,8 @@ const emit = defineEmits<{
       <div
         f-r-n items-center justify-between h-10 c-t px-1 my-1
         border-1 border-dotted hover:border-t cursor-pointer
-        :class="currentContent === content._href ? (emit('focusParentContent', parentIndex), 'content-focus border-t border-solid') : 'border-t-b'"
-        @click="jumpByContent(content)"
+        :class="isFocused(content)"
+        @click="jumpBySubContent(content)"
       >
         <div
           overflow-hidden text-ellipsis whitespace-nowrap c-t flex-1

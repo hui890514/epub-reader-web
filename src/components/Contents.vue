@@ -3,6 +3,7 @@ import { nextTick, ref, watch } from 'vue'
 import { jump } from '@/helpers/reader'
 import SubContents from '@/components/SubContents.vue'
 import { type _NavItem, collapse, currentContent, jumpByContent } from '@/helpers/contents'
+import { currentSubContent, subContentsMap } from '@/helpers/subContents'
 
 const props = defineProps<{
   contents: _NavItem[] | undefined
@@ -18,14 +19,22 @@ function focusParentContent(index: number) {
   parentContentFocusIndex.value = index
 }
 
-watch(() => currentContent.value, () => {
+watch([currentContent, currentSubContent], () => {
   parentContentFocusIndex.value = -1
   nextTick(() => {
-    const doms = document.querySelectorAll('.content-focus')
+    const dom = document.querySelector('.content-focus')
+    const dom2 = document.querySelector('.sub-content-focus')
     // @ts-expect-error use scrollIntoViewIfNeeded
-    doms[doms.length - 1]?.scrollIntoViewIfNeeded?.()
+    ;(dom2 || dom)?.scrollIntoViewIfNeeded?.()
   })
 })
+
+function isFocused(content: _NavItem, index: number) {
+  if (currentContent.value === content._href || parentContentFocusIndex.value === index)
+    return 'content-focus border-t border-solid'
+  else
+    return 'border-t-b'
+}
 </script>
 
 <template>
@@ -34,7 +43,7 @@ watch(() => currentContent.value, () => {
       <div
         f-r-n items-center justify-between h-10 c-t px-1 my-1
         border-1 border-dotted hover:border-t cursor-pointer
-        :class="currentContent === content._href || parentContentFocusIndex === index ? 'content-focus border-t border-solid' : 'border-t-b'"
+        :class="isFocused(content, index)"
         @click="jumpByContent(content)"
       >
         <div
