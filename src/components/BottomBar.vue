@@ -3,7 +3,9 @@ import { currentPage, currentPercentage, nextPage, prevPage, totalPage } from '@
 import type { panelName } from '@/helpers/contents'
 
 defineProps<{ currentPanel: panelName }>()
-defineEmits(['switchPanel'])
+const emit = defineEmits<{
+  switchPanel: [panel: panelName]
+}>()
 </script>
 
 <template>
@@ -13,7 +15,7 @@ defineEmits(['switchPanel'])
         w-8 h-8 f-c cursor-pointer mr-1 border-t
         :class="currentPanel === 'contents' ? 'border-1 border-solid' : 'hover:border-1 hover:border-dotted active:border-solid'"
         title="contents"
-        @click="$emit('switchPanel', 'contents')"
+        @click="emit('switchPanel', 'contents')"
       >
         <div i-mdi:menu c-t />
       </div>
@@ -21,7 +23,7 @@ defineEmits(['switchPanel'])
         w-8 h-8 f-c cursor-pointer mr-1 border-t
         :class="currentPanel === 'setting' ? 'border-1 border-solid' : 'hover:border-1 hover:border-dotted active:border-solid'"
         title="setting"
-        @click="$emit('switchPanel', 'setting')"
+        @click="emit('switchPanel', 'setting')"
       >
         <div i-mdi:settings-outline c-t />
       </div>
@@ -29,7 +31,7 @@ defineEmits(['switchPanel'])
         w-8 h-8 f-c cursor-pointer mr-1 border-t
         :class="currentPanel === 'history' ? 'border-1 border-solid' : 'hover:border-1 hover:border-dotted active:border-solid'"
         title="history"
-        @click="$emit('switchPanel', 'history')"
+        @click="emit('switchPanel', 'history')"
       >
         <div i-mdi:history c-t />
       </div>
