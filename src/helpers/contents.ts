@@ -8,8 +8,32 @@ export interface _NavItem extends NavItem {
 }
 
 export const contents = ref<_NavItem[]>()
-export const currentContent = ref<string>()
-
+export function setContents() {
+  contents.value = _setContents(window.book.navigation.toc)
+}
+function _setContents(contents: NavItem[]) {
+  for (const content of contents as _NavItem[]) {
+    addHref(content)
+    if (content.subitems?.length) {
+      addIsCollapsed(content)
+      handleSubContentsMap(content)
+      _setContents(content.subitems)
+    }
+  }
+  return contents as _NavItem[]
+}
+function addHref(content: _NavItem) {
+  content.href = removeRelativePath(content.href)
+  content._href = (removeHrefTarget(content.href))
+}
+function removeRelativePath(href: string) {
+  if (href.startsWith('../'))
+    return href.replace('../', '')
+  return href
+}
+function removeHrefTarget(href: string) {
+  return href.split('#')[0]
+}
 function addIsCollapsed(content: _NavItem) {
   content.isCollapsed = false
 }
@@ -17,7 +41,6 @@ function addIsCollapsed(content: _NavItem) {
 export function collapse(content: _NavItem) {
   content.isCollapsed = !content.isCollapsed
 }
-
 export function collapseAll(isCollapsed: boolean, _contents = contents.value) {
   if (_contents?.length) {
     for (const content of _contents) {
@@ -29,34 +52,9 @@ export function collapseAll(isCollapsed: boolean, _contents = contents.value) {
   }
 }
 
+export const currentContent = ref<string>()
+
 export type panelName = 'contents' | 'setting' | 'history'
-
-function handleHref(href: string) {
-  return href.split('#')[0]
-}
-
-function handleHref2(href: string) {
-  return href.split('#')[1]
-}
-
-export function addHref(content: _NavItem) {
-  content._href = _handleHref(handleHref(content.href))
-}
-export function setContents() {
-  contents.value = _handleContents(window.book.navigation.toc)
-}
-
-export function _handleContents(contents: NavItem[]) {
-  for (const content of contents as _NavItem[]) {
-    addHref(content)
-    if (content.subitems?.length) {
-      addIsCollapsed(content)
-      handleSubContentsMap(content)
-      _handleContents(content.subitems)
-    }
-  }
-  return contents as _NavItem[]
-}
 
 interface SubContentsMap {
   [key: string]: {
@@ -70,9 +68,12 @@ const subContentsMap: SubContentsMap = {}
 function handleSubContentsMap(content: _NavItem) {
   const items: SubContentsMap['key']['items'] = {}
   content.subitems.forEach((subContent) => {
-    items[handleHref2(subContent.href)] = -1
+    items[getPathTarget(subContent.href)] = -1
   })
   subContentsMap[content._href] = { isCalculated: false, items }
+}
+function getPathTarget(href: string) {
+  return href.split('#')[1]
 }
 
 export function handleSubContents(href: string | undefined, cfi: string) {
@@ -136,10 +137,4 @@ function handleCfi(cfi: string) {
   // /2[_idContainer018]/16/1:290)
   // => 2
   return Number(cfi.split('/')[5]?.split('[')[0])
-}
-
-export function _handleHref(href: string) {
-  if (href.startsWith('../'))
-    return href.replace('../', '')
-  return href
 }

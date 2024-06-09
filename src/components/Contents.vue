@@ -2,7 +2,7 @@
 import { watch } from 'vue'
 import { jump } from '@/helpers/reader'
 import Contents from '@/components/Contents.vue'
-import { type _NavItem, _handleHref, collapse, currentContent, currentSubContent } from '@/helpers/contents'
+import { type _NavItem, collapse, currentContent, currentSubContent } from '@/helpers/contents'
 
 const props = defineProps<{
   contents: _NavItem[] | undefined
@@ -13,7 +13,7 @@ function _jump(content: _NavItem) {
   content.isCollapsed === true && collapse(content)
   currentContent.value = content._href
   currentSubContent.value = content.parent ? content.href : ''
-  jump(_handleHref(content.href))
+  jump((content.href))
 }
 
 function _collapse(e: MouseEvent, content: _NavItem) {
