@@ -17,7 +17,7 @@ function toggleContentsHidden(e?: MouseEvent) {
   nextTick(() => resize())
 }
 
-const currentPanel = ref<panelName>('history')
+const currentPanel = ref<panelName>('contents')
 function switchPanel(name: panelName) {
   currentPanel.value = name
 }
