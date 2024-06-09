@@ -1,8 +1,8 @@
 import ePub, { type Book, type Rendition } from 'epubjs'
 import { ref } from 'vue'
-import { registerThemes, setFontsize, setTheme } from './theme'
-import { type Metadata, setMetadata } from './metadata'
-import { getCurrentLocation, setTotalPage } from './page'
+import { registerThemes, setFontsize, setTheme } from '@/helpers/theme'
+import { type Metadata, setMetadata } from '@/helpers/metadata'
+import { getCurrentLocation, setTotalPage } from '@/helpers/page'
 import { setContents } from '@/helpers/contents'
 
 interface _Book extends Book {

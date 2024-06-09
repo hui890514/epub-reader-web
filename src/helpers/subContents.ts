@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { type _NavItem, currentContent } from './contents'
+import { type _NavItem, currentContent } from '@/helpers/contents'
 
 interface SubContentsMap {
   [key: string]: {

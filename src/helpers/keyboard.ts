@@ -1,4 +1,4 @@
-import { nextPage, prevPage } from './page'
+import { nextPage, prevPage } from '@/helpers/page'
 
 export function registerKeyboardEvents() {
   document.addEventListener('keydown', handleKeyboardEvent)

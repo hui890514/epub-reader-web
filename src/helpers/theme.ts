@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import { getStorageCurrentFontsize, getStorageCurrentThemeIndex, setStorageCurrentFontsize, setStorageCurrentThemeIndex } from './storage'
-import { debounce } from './utils'
+import { getStorageCurrentFontsize, getStorageCurrentThemeIndex, setStorageCurrentFontsize, setStorageCurrentThemeIndex } from '@/helpers/storage'
+import { debounce } from '@/helpers/utils'
 
 export const themeList = [
   {

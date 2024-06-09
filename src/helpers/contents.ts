@@ -1,7 +1,7 @@
 import type { NavItem } from 'epubjs/types/navigation'
 import { nextTick, ref } from 'vue'
-import { resize } from './reader'
-import { setSubContentsMap } from './subContents'
+import { resize } from '@/helpers/reader'
+import { setSubContentsMap } from '@/helpers/subContents'
 
 export interface _NavItem extends NavItem {
   isCollapsed?: boolean

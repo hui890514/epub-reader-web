@@ -1,9 +1,9 @@
 import { ref } from 'vue'
 import type { Rendition } from 'epubjs'
-import { jump } from './reader'
-import { currentContent } from './contents'
-import { debounce } from './utils'
-import { handleSubContents } from './subContents'
+import { jump } from '@/helpers/reader'
+import { currentContent } from '@/helpers/contents'
+import { debounce } from '@/helpers/utils'
+import { handleSubContents } from '@/helpers/subContents'
 
 export const totalPage = ref(0)
 export const currentPage = ref(1)
