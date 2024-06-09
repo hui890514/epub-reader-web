@@ -1,5 +1,6 @@
 import type { NavItem } from 'epubjs/types/navigation'
-import { ref, watch } from 'vue'
+import { nextTick, ref, watch } from 'vue'
+import { resize } from './reader'
 
 export interface _NavItem extends NavItem {
   isCollapsed?: boolean
@@ -53,8 +54,6 @@ export function collapseAll(isCollapsed: boolean, _contents = contents.value) {
 }
 
 export const currentContent = ref<string>()
-
-export type panelName = 'contents' | 'setting' | 'history'
 
 interface SubContentsMap {
   [key: string]: {
@@ -137,4 +136,11 @@ function handleCfi(cfi: string) {
   // /2[_idContainer018]/16/1:290)
   // => 2
   return Number(cfi.split('/')[5]?.split('[')[0])
+}
+
+export const isContentsHidden = ref(false)
+export function setContentsHidden(value: boolean, e?: MouseEvent) {
+  e && e.stopPropagation()
+  isContentsHidden.value = value
+  nextTick(() => resize())
 }

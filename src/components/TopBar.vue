@@ -1,14 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { collapseAll, type panelName } from '@/helpers/contents'
-
-defineProps<{
-  isContentsHidden: boolean
-  currentPanel: panelName
-}>()
-const emit = defineEmits<{
-  toggleContentsHidden: []
-}>()
+import { collapseAll, isContentsHidden, setContentsHidden } from '@/helpers/contents'
+import { currentPanel } from '@/helpers/panel'
 
 const isFullScreen = ref(!!document.fullscreenElement)
 function toggleFullScreen() {
@@ -41,7 +34,7 @@ function toggleFullScreen() {
         <div v-if="!isFullScreen" i-mdi:fullscreen c-t />
         <div v-else i-mdi:fullscreen-exit c-t />
       </div>
-      <div i-d title="hidden contents" class="class-for-vim" @click="emit('toggleContentsHidden')">
+      <div i-d title="hidden contents" class="class-for-vim" @click="setContentsHidden(true)">
         <div v-if="!isContentsHidden" i-mdi:menu-open c-t />
       </div>
     </div>

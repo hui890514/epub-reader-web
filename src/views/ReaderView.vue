@@ -7,23 +7,10 @@ import TopBar from '@/components/TopBar.vue'
 import Reader from '@/components/Reader.vue'
 import History from '@/components/History.vue'
 import { resize } from '@/helpers/reader'
-import { contents } from '@/helpers/contents'
+import { contents, isContentsHidden, setContentsHidden } from '@/helpers/contents'
 import { nextPage, prevPage, setCurrentPage } from '@/helpers/page'
-
+import { currentPanel } from '@/helpers/panel'
 import { registerKeyboardEvents, unregisterKeyboardEvents } from '@/helpers/keyboard'
-import type { panelName } from '@/helpers/contents'
-
-const isContentsHidden = ref(false)
-function toggleContentsHidden(e?: MouseEvent) {
-  e && e.stopPropagation()
-  isContentsHidden.value = !isContentsHidden.value
-  nextTick(() => resize())
-}
-
-const currentPanel = ref<panelName>('contents')
-function switchPanel(name: panelName) {
-  currentPanel.value = name
-}
 
 registerKeyboardEvents()
 onUnmounted(() => unregisterKeyboardEvents())
@@ -39,17 +26,15 @@ const isPageIconBorderHidden = ref(false)
     >
       <TopBar
         h-10 border-0 border-b-2 border-solid border-t p-1 f-r-n items-center justify-between
-        :current-panel="currentPanel" :is-contents-hidden="isContentsHidden"
-        @toggle-contents-hidden="toggleContentsHidden"
+        :is-contents-hidden="isContentsHidden"
       />
       <div flex-1 overflow-auto p-1 class="contents-wrapper">
         <Contents v-show="currentPanel === 'contents'" :contents="contents" />
         <Setting v-if="currentPanel === 'setting'" />
-        <History v-else-if="currentPanel === 'history'" @switch-panel="switchPanel" />
+        <History v-else-if="currentPanel === 'history'" />
       </div>
       <BottomBar
         h-10 border-0 border-t-2 border-solid border-t f-r-n justify-between
-        :current-panel="currentPanel" @switch-panel="switchPanel"
       />
     </div>
     <div flex-1 overflow-hidden position-relative>
@@ -62,7 +47,7 @@ const isPageIconBorderHidden = ref(false)
         <div w-11 position-absolute top-0 f-c pt-1 invisible>
           <div
             v-show="isContentsHidden" i-d title="show contents"
-            class="class-for-vim" @click="e => toggleContentsHidden(e)"
+            class="class-for-vim" @click="e => setContentsHidden(false, e)"
             @mouseenter="isPageIconBorderHidden = true" @mouseleave="isPageIconBorderHidden = false"
           >
             <div i-mdi:menu-close c-t />

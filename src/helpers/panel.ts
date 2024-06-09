@@ -1,0 +1,8 @@
+import { ref } from 'vue'
+
+export type panelName = 'contents' | 'setting' | 'history'
+
+export const currentPanel = ref<panelName>('contents')
+export function setCurrentPanel(name: panelName) {
+  currentPanel.value = name
+}
