@@ -54,7 +54,7 @@ export function collapseAll(isCollapsed: boolean, _contents = contents.value) {
   }
 }
 
-export const currentContent = ref<string>()
+export const currentContent = ref<string>('')
 
 export const isContentsHidden = ref(false)
 export function setContentsHidden(value: boolean, e?: MouseEvent) {
