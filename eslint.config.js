@@ -4,4 +4,7 @@ export default antfu({
   stylistic: true,
   typescript: true,
   formatters: true,
+  rules: {
+    'no-console': 'off',
+  },
 })
