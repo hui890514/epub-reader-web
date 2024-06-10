@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { currentPanel, setCurrentPanel } from '@/helpers/panel'
-import { handleFileUpload } from '@/helpers/upload'
+import { ref } from 'vue'
+import { upload } from '@/helpers/upload'
 
-async function _handleFileUpload(e: Event) {
-  await handleFileUpload(e) && setCurrentPanel('contents')
+const fileInput = ref<HTMLInputElement | null>()
+function _upload() {
+  fileInput.value?.click()
 }
 </script>
 
 <template>
   <div>
-    <input type="file" accept="application/epub+zip" @change="_handleFileUpload">
+    <input ref="fileInput" type="file" accept="application/epub+zip" hidden @change="upload">
+    <div bg-t-b c-t w-full h-10 border-2 border-solid border-t cursor-pointer f-c @click="_upload">
+      Open Local Epub File
+    </div>
   </div>
 </template>
