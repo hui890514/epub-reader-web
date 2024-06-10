@@ -44,7 +44,7 @@ export function setThemeVariable(index: number = getStorageCurrentThemeIndex()) 
   setProperty('--theme-bg-color', themeList[index].style.body.background)
 }
 
-export const currentThemeIndex = ref(-1)
+export const currentThemeIndex = ref(getStorageCurrentThemeIndex())
 export function registerThemes() {
   themeList.forEach((theme) => {
     window.book.rendition.themes.register(theme.name, theme.style)
@@ -57,7 +57,7 @@ export function setTheme(index: number = getStorageCurrentThemeIndex()) {
   }
 }
 
-export const currentFontsize = ref(0)
+export const currentFontsize = ref(getStorageCurrentFontsize())
 const _setFontsize = debounce((fontsize: number) => {
   window.book.rendition.themes.fontSize(`${fontsize}px`)
 }, 200)

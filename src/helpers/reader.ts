@@ -50,5 +50,5 @@ export function jump(href: number | string) {
 
 export function resize() {
   // @ts-expect-error don't need parameters
-  return rendition.resize()
+  return rendition?.resize()
 }
