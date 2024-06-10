@@ -21,6 +21,7 @@ let rendition: Rendition
 export const bookLoading = ref(false)
 
 export function showEpub(input: string | Blob) {
+  rendition && rendition.destroy()
   bookLoading.value = false
   // @ts-expect-error input may be the blob type
   const book = ePub(input) as _Book
