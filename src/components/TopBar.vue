@@ -48,7 +48,7 @@ function toggleFullScreen() {
           <div i-mdi:reload c-t />
         </div>
         <div
-          i-d title="clear" class="class-for-vim"
+          i-d title="delete all" class="class-for-vim"
           @click="deleteAllHistory()"
         >
           <div i-mdi:delete-outline c-t />

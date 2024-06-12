@@ -36,7 +36,7 @@ function _deleteHistory(e: Event, item: History) {
           :class="metadata?.id === item.id && 'border-solid'"
           @click="openHistory(item)"
         >
-          <div flex-1 f-c-n justify-between pb-2>
+          <div flex-1 f-c-n justify-between pb-2 c-t>
             <div mb-2>
               {{ moment(item.date).format('YYYY-MM-DD HH:mm') }}
             </div>
@@ -44,7 +44,7 @@ function _deleteHistory(e: Event, item: History) {
               {{ item.name }}
             </div>
           </div>
-          <div flex-shrink-0 f-c-n justify-between items-center>
+          <div flex-shrink-0 f-c-n justify-between items-center c-t>
             <div>
               {{ item.percentage }}%
             </div>
