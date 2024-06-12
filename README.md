@@ -2,9 +2,15 @@
 
 This is a ePub reader in web.
 
-## features
+You can try it on: https://hui890514.github.io/epub-reader-web/
 
-- 图片点击变大
+## Features
+
+- Based on [epub.js](https://github.com/futurepress/epub.js)
+
+- E-ink theme style
+
+- Store books using indexedDB
 
 ## License
 
