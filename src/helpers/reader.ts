@@ -1,9 +1,8 @@
-import { nextTick, ref, watch } from 'vue'
+import { ref } from 'vue'
 import ePub, { type Book, type Rendition } from 'epubjs'
 import { addHistory } from '@/helpers/history'
-import { setBookAndHistory } from '@/helpers/database'
 import { registerThemes, setFontsize, setTheme } from '@/helpers/theme'
-import { type Metadata, metadata, resetMetadata, setMetadata } from '@/helpers/metadata'
+import { metadata, resetMetadata, setMetadata } from '@/helpers/metadata'
 import { getCurrentLocation, resetPage, setTotalPage } from '@/helpers/page'
 import { resetContents, setContents } from '@/helpers/contents'
 

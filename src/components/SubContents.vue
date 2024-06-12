@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { type Ref, watch } from 'vue'
-import { jump } from '@/helpers/reader'
-import Contents from '@/components/Contents.vue'
-import { type _NavItem, collapse, currentContent, jumpByContent } from '@/helpers/contents'
+import { type _NavItem, currentContent } from '@/helpers/contents'
 import { currentSubContent, jumpBySubContent, subContentsMap } from '@/helpers/subContents'
 
 const props = defineProps<{

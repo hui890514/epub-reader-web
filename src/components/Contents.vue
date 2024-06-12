@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue'
-import { jump } from '@/helpers/reader'
 import SubContents from '@/components/SubContents.vue'
 import { type _NavItem, collapse, currentContent, jumpByContent } from '@/helpers/contents'
-import { currentSubContent, subContentsMap } from '@/helpers/subContents'
+import { currentSubContent } from '@/helpers/subContents'
 
 const props = defineProps<{
   contents: _NavItem[] | undefined

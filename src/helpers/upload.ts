@@ -1,4 +1,3 @@
-import { setCurrentPanel } from '@/helpers/panel'
 import { showEpub } from '@/helpers/reader'
 
 export async function upload(event: Event) {
