@@ -1,6 +1,7 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Rendition } from 'epubjs'
 import { handleSubContents, subContentsMap } from './subContents'
+import { updateHistory } from './history'
 import { jump } from '@/helpers/reader'
 import { currentContent } from '@/helpers/contents'
 import { debounce } from '@/helpers/utils'
@@ -24,20 +25,17 @@ export function nextPage() {
 }
 
 export const currentPercentage = ref(0)
-export function jumpByPercentage(percentage = 0) {
-  const location = percentage > 0 ? window.book.locations.cfiFromPercentage(percentage) : '0'
-  jump(location)
-}
+export const currentCfi = ref('')
 
 export const getCurrentLocation = debounce((rendition: Rendition) => {
   const start = rendition.location?.start
   const end = rendition.location?.end
   currentPage.value = start.index + 1
+  currentCfi.value = start.cfi
   // @ts-expect-error percentage exists in fact
-  let percentage = end.percentage
-  if ((percentage === 0 && currentPage.value !== 1) || (percentage === 1 && currentPage.value !== totalPage.value))
-    percentage = currentPage.value / totalPage.value
-  currentPercentage.value = percentage
+  const percentage = end.percentage
+  if (!(percentage === 0 && currentPage.value !== 0))
+    currentPercentage.value = percentage
   currentContent.value = start.href
   subContentsMap.value[start.href] && handleSubContents(start.href, start.cfi)
 }, 200)
@@ -47,3 +45,8 @@ export function resetPage() {
   currentPage.value = 1
   currentPercentage.value = 0
 }
+
+const _updateHistory = debounce(updateHistory, 10 * 1000)
+watch(currentPercentage, (n) => {
+  _updateHistory(n, currentCfi.value)
+})

@@ -17,14 +17,13 @@ let rendition: Rendition
 
 export const bookLoading = ref(false)
 
-export function showEpub(input: string | Blob, needSave = false) {
+export function showEpub(input: string | Blob, cfi = '0', needSave = false) {
   closeEpub()
   bookLoading.value = false
   // @ts-expect-error input may be the blob type
   const book = ePub(input)
   window.book = book
   rendition = book.renderTo('reader', { flow: 'scrolled', width: '100%', height: '100%', spread: 'none' })
-  rendition.display(0)
   registerThemes()
   setTheme()
   setFontsize()
@@ -38,6 +37,9 @@ export function showEpub(input: string | Blob, needSave = false) {
     setTotalPage()
     bookLoading.value = true
   })
+  setTimeout(() => {
+    jump(cfi)
+  }, 200)
   rendition.on('relocated', () => {
     getCurrentLocation(rendition)
   })

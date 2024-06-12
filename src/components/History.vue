@@ -46,7 +46,7 @@ function _deleteHistory(e: Event, item: History) {
           </div>
           <div flex-shrink-0 f-c-n justify-between items-center c-t>
             <div>
-              {{ item.percentage }}%
+              {{ (item.percentage * 100).toFixed(1) }}%
             </div>
             <div
               i-d title="delete" class="class-for-vim"

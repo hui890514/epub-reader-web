@@ -9,6 +9,7 @@ export interface History {
   id: string
   name: string
   percentage: number
+  cfi: string
   date: Date
 }
 
@@ -37,8 +38,8 @@ export async function setHistory(history: History) {
 
 export async function setBookAndHistory(metadata: Metadata, blob: Blob) {
   const t = db.transaction(['book', 'history'], 'readwrite')
-  await t.objectStore('book').put({ id: metadata.id, blob } as Book)
-  await t.objectStore('history').put({ id: metadata.id, name: metadata.title, percentage: 0, date: new Date() } as History)
+  await t.objectStore('book').put({ id: metadata.id, blob })
+  await t.objectStore('history').put({ id: metadata.id, name: metadata.title, percentage: 0, date: new Date(), cfi: '' })
 }
 
 export async function deleteBookAndHistory(id: string) {
