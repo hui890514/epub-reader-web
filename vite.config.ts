@@ -1,5 +1,4 @@
 import { URL, fileURLToPath } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import unoCSS from 'unocss/vite'
@@ -9,6 +8,9 @@ export default defineConfig({
   base: '/epub-reader-web/',
   build: {
     target: 'esnext',
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
   },
   plugins: [
     vue(),
