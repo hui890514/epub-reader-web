@@ -1,14 +1,10 @@
 import { ref } from 'vue'
-import type Rendition from 'epubjs/types/rendition'
-import type Book from 'epubjs/types/book'
-import type Epub from 'epubjs/types/epub'
+import ePub, { type Book, type Rendition } from 'epubjs'
 import { addHistory } from '@/helpers/history'
 import { registerThemes, setFontsize, setTheme } from '@/helpers/theme'
 import { metadata, resetMetadata, setMetadata } from '@/helpers/metadata'
 import { getCurrentLocation, resetPage, setTotalPage } from '@/helpers/page'
 import { resetContents, setContents } from '@/helpers/contents'
-// @ts-expect-error use dist/epub.js to pack
-const ePub = import('epubjs/dist/epub.js') as typeof Epub
 
 declare global{
   interface Window {
