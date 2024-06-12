@@ -6,6 +6,11 @@ export interface Metadata {
 }
 export const metadata = ref<Metadata>()
 export function setMetadata() {
-  metadata.value = window.book.package.metadata
+  // @ts-expect-error pacakge exists
+  const { identifier: id, title } = window.book.package.metadata
+  metadata.value = { id, title }
   document.title = `Epub Reader | ${metadata.value.title}`
+}
+export function resetMetadata() {
+  metadata.value = undefined
 }

@@ -11,14 +11,14 @@ interface SubContentsMap {
   }
 }
 
-export const subContentsMap: SubContentsMap = {}
+export const subContentsMap = ref<SubContentsMap>({})
 export function setSubContentsMap(content: _NavItem) {
   if (content._href === content.subitems[0]._href) {
     const items: SubContentsMap['key']['items'] = {}
     content.subitems.forEach((subContent) => {
       items[getPathTarget(subContent.href)] = -1
     })
-    subContentsMap[content._href] = { isCalculated: false, items }
+    subContentsMap.value[content._href] = { isCalculated: false, items }
   }
 }
 function getPathTarget(href: string) {
@@ -29,10 +29,10 @@ export const currentSubContent = ref('')
 export function handleSubContents(href: string | undefined, cfi: string) {
   if (!href || !cfi)
     return
-  if (subContentsMap[href] && !subContentsMap[href].isCalculated) {
+  if (subContentsMap.value[href] && !subContentsMap.value[href].isCalculated) {
     setTimeout(() => {
       calculateSubContent(href)
-      subContentsMap[href].isCalculated = true
+      subContentsMap.value[href].isCalculated = true
       setCurrentSubContent(href, cfi)
     }, 100)
   }
@@ -46,7 +46,7 @@ function calculateSubContent(href: string) {
     return
   const dom = document.createElement('html')
   dom.innerHTML = srcdoc
-  const subContents = subContentsMap[href].items
+  const subContents = subContentsMap.value[href].items
   let parentNode: Element | undefined
   let parentNodeArray: Array<Element> = []
   for (const subContent of Object.keys(subContents)) {
@@ -61,7 +61,7 @@ function calculateSubContent(href: string) {
   }
 }
 function setCurrentSubContent(href: string, cfi: string) {
-  const subContentsObj = subContentsMap[href]
+  const subContentsObj = subContentsMap.value[href]
   if (!subContentsObj || !subContentsObj.isCalculated) {
     currentSubContent.value = ''
     return
@@ -88,6 +88,11 @@ function getIndexByCfi(cfi: string) {
 
 export function jumpBySubContent(content: _NavItem) {
   currentContent.value = content._href
-  subContentsMap[content._href] && (currentSubContent.value = content.href)
+  subContentsMap.value[content._href] && (currentSubContent.value = content.href)
   jump(content.href)
+}
+
+export function resetSubContents() {
+  subContentsMap.value = {}
+  currentSubContent.value = ''
 }

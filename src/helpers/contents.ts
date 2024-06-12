@@ -68,3 +68,8 @@ export function jumpByContent(content: _NavItem) {
   currentContent.value = content._href
   jump(content.href)
 }
+
+export function resetContents() {
+  contents.value = undefined
+  currentContent.value = ''
+}

@@ -39,5 +39,11 @@ export const getCurrentLocation = debounce((rendition: Rendition) => {
     percentage = currentPage.value / totalPage.value
   currentPercentage.value = percentage
   currentContent.value = start.href
-  subContentsMap[start.href] && handleSubContents(start.href, start.cfi)
+  subContentsMap.value[start.href] && handleSubContents(start.href, start.cfi)
 }, 200)
+
+export function resetPage() {
+  totalPage.value = 0
+  currentPage.value = 1
+  currentPercentage.value = 0
+}

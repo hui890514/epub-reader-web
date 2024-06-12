@@ -1,18 +1,15 @@
+import { nextTick, ref, watch } from 'vue'
 import ePub, { type Book, type Rendition } from 'epubjs'
-import { ref } from 'vue'
+import { addHistory } from './history'
+import { setBookAndHistory } from '@/helpers/database'
 import { registerThemes, setFontsize, setTheme } from '@/helpers/theme'
-import { type Metadata, setMetadata } from '@/helpers/metadata'
-import { getCurrentLocation, setTotalPage } from '@/helpers/page'
-import { setContents } from '@/helpers/contents'
+import { type Metadata, metadata, resetMetadata, setMetadata } from '@/helpers/metadata'
+import { getCurrentLocation, resetPage, setTotalPage } from '@/helpers/page'
+import { resetContents, setContents } from '@/helpers/contents'
 
-interface _Book extends Book {
-  package: {
-    metadata: Metadata
-  }
-}
 declare global{
   interface Window {
-    book: _Book
+    book: Book
   }
 }
 
@@ -20,11 +17,11 @@ let rendition: Rendition
 
 export const bookLoading = ref(false)
 
-export function showEpub(input: string | Blob) {
-  rendition && rendition.destroy()
+export function showEpub(input: string | Blob, needSave = false) {
+  closeEpub()
   bookLoading.value = false
   // @ts-expect-error input may be the blob type
-  const book = ePub(input) as _Book
+  const book = ePub(input)
   window.book = book
   rendition = book.renderTo('reader', { flow: 'scrolled', width: '100%', height: '100%', spread: 'none' })
   rendition.display(0)
@@ -34,6 +31,8 @@ export function showEpub(input: string | Blob) {
   book.ready.then(() => {
     setContents()
     setMetadata()
+    if (needSave && metadata.value?.id && typeof input !== 'string')
+      addHistory(input)
     book.locations.generate(150)
   }).then(() => {
     setTotalPage()
@@ -52,4 +51,13 @@ export function jump(href: number | string) {
 export function resize() {
   // @ts-expect-error don't need parameters
   return rendition?.resize()
+}
+
+export function closeEpub() {
+  if (metadata.value?.id) {
+    rendition.destroy()
+    resetContents()
+    resetMetadata()
+    resetPage()
+  }
 }

@@ -14,7 +14,7 @@ const emit = defineEmits<{
 }>()
 
 function isFocused(content: _NavItem) {
-  if (subContentsMap[content._href]) {
+  if (subContentsMap.value[content._href]) {
     if (currentSubContent.value === content.href && currentContent.value === content._href)
       return 'sub-content-focus border-t border-solid'
     else
