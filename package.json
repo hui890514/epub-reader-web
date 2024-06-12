@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "epubjs": "0.3.83",
+    "idb": "^8.0.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
