@@ -38,7 +38,7 @@ export function showEpub(input: string | Blob, cfi = '0', needSave = false) {
     bookLoading.value = true
   })
   setTimeout(() => {
-    jump(cfi)
+    jump(cfi || 0)
   }, 200)
   rendition.on('relocated', () => {
     getCurrentLocation(rendition)
