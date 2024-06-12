@@ -2,8 +2,10 @@
 import { currentFontsize, currentThemeIndex, setFontsize, setTheme, setThemeVariable, themeList } from '@/helpers/theme'
 
 function changeTheme(index: number) {
-  setThemeVariable(index)
-  setTheme(index)
+  if (currentThemeIndex.value !== index) {
+    setThemeVariable(index)
+    setTheme(index)
+  }
 }
 </script>
 

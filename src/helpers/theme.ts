@@ -51,10 +51,8 @@ export function registerThemes() {
   })
 }
 export function setTheme(index: number = getStorageCurrentThemeIndex()) {
-  if (index >= 0 && index < themeList.length && currentThemeIndex.value !== index) {
-    setStorageCurrentThemeIndex(currentThemeIndex.value = index)
-    window.book.rendition.themes.select(themeList[index].name)
-  }
+  setStorageCurrentThemeIndex(currentThemeIndex.value = index)
+  window.book.rendition.themes.select(themeList[index].name)
 }
 
 export const currentFontsize = ref(getStorageCurrentFontsize())
