@@ -1,12 +1,10 @@
 import { ref } from 'vue'
-import type { Book, Rendition } from 'epubjs'
+import ePub, { type Book, type Rendition } from 'epubjs'
 import { addHistory } from '@/helpers/history'
 import { registerThemes, setFontsize, setTheme } from '@/helpers/theme'
 import { metadata, resetMetadata, setMetadata } from '@/helpers/metadata'
 import { getCurrentLocation, resetPage, setTotalPage } from '@/helpers/page'
 import { resetContents, setContents } from '@/helpers/contents'
-
-const ePub = import('epubjs')
 
 declare global{
   interface Window {
