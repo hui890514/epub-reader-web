@@ -1,5 +1,5 @@
 import { ref, watch } from 'vue'
-import type { Rendition } from 'epubjs'
+import type Rendition from 'epubjs/types/rendition'
 import { handleSubContents, subContentsMap } from '@/helpers/subContents'
 import { updateHistory } from '@/helpers/history'
 import { jump } from '@/helpers/reader'
