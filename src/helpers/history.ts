@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import { metadata } from './metadata'
-import { currentPercentage } from './page'
+import { metadata } from '@/helpers/metadata'
+import { currentPercentage } from '@/helpers/page'
 import { type History, deleteAll, deleteBookAndHistory, getAllHistory, getBook, setBookAndHistory, setHistory } from '@/helpers/database'
 import { closeEpub, showEpub } from '@/helpers/reader'
 
