@@ -66,4 +66,4 @@ export async function getAllHistory() {
   return result
 }
 
-// await init()
+await init()
