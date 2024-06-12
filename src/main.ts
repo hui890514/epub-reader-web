@@ -5,10 +5,6 @@ import './style.css'
 import 'virtual:uno.css'
 import { setThemeVariable } from '@/helpers/theme'
 
+createApp(App).use(router).mount('#app')
+
 setThemeVariable()
-
-const app = createApp(App)
-
-app.use(router)
-
-app.mount('#app')
