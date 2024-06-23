@@ -45,7 +45,7 @@ export async function deleteAllHistory() {
 
 export async function updateHistory(percentage: number, cfi: string) {
   if (metadata.value?.id) {
-    console.log('update history', metadata.value.title, percentage)
+    console.log(`%c update history: ${metadata.value.title} | ${percentage}`, 'background: #b4b4b3; color: white')
     return setHistory({
       id: metadata.value.id,
       name: metadata.value.title,
