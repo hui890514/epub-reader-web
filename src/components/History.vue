@@ -52,7 +52,7 @@ function _deleteHistory(e: Event, item: History) {
               i-d title="delete" class="class-for-vim"
               @click="e => _deleteHistory(e, item)"
             >
-              <div i-mdi:bookmark-remove-outline c-t />
+              <div i-mdi:remove-circle-outline c-t />
             </div>
           </div>
         </div>

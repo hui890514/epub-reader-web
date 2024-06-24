@@ -47,7 +47,7 @@ function isFocused(content: _NavItem, index: number) {
       >
         <div
           overflow-hidden text-ellipsis whitespace-nowrap c-t flex-1
-          :title="content.label"
+          :title="content.label.trim()"
         >
           {{ content.label }}
         </div>
