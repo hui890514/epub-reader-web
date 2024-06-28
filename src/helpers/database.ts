@@ -14,7 +14,7 @@ export interface History {
 }
 
 let db: IDBPDatabase
-export async function init() {
+async function init() {
   db = await openDB('epub-reader-web', 1, {
     upgrade(db) {
       if (!db.objectStoreNames.contains('book'))
@@ -25,36 +25,36 @@ export async function init() {
   })
 }
 
-export async function getBook(id: string): Promise<Book> {
+export async function getBookApi(id: string): Promise<Book> {
   return db.transaction('book', 'readonly').objectStore('book').get(id)
 }
 
-export async function getHistory(id: string): Promise<History> {
+export async function getHistoryApi(id: string): Promise<History> {
   return db.transaction('history', 'readonly').objectStore('history').get(id)
 }
-export async function setHistory(history: History) {
+export async function setHistoryApi(history: History) {
   return db.transaction('history', 'readwrite').objectStore('history').put(history)
 }
 
-export async function setBookAndHistory(metadata: Metadata, blob: Blob) {
+export async function setBookAndHistoryApi(metadata: Metadata, blob: Blob) {
   const t = db.transaction(['book', 'history'], 'readwrite')
   await t.objectStore('book').put({ id: metadata.id, blob })
   await t.objectStore('history').put({ id: metadata.id, name: metadata.title, percentage: 0, date: new Date(), cfi: '' })
 }
 
-export async function deleteBookAndHistory(id: string) {
+export async function deleteBookAndHistoryApi(id: string) {
   const t = db.transaction(['book', 'history'], 'readwrite')
   await t.objectStore('book').delete(id)
   await t.objectStore('history').delete(id)
 }
 
-export async function deleteAll() {
+export async function deleteAllApi() {
   const t = db.transaction(['book', 'history'], 'readwrite')
   await t.objectStore('book').clear()
   await t.objectStore('history').clear()
 }
 
-export async function getAllHistory() {
+export async function getAllHistoryApi() {
   const result: History[] = []
   let cursor = await db.transaction('history', 'readonly')
     .objectStore('history')
