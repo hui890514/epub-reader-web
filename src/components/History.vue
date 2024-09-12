@@ -33,7 +33,7 @@ function _deleteHistory(e: Event, item: History) {
         <div
           border-2 border-dotted border-t hover:border-solid cursor-pointer mb-1 pt-3 pl-3 pb-1 pr-1
           f-r-n justify-between
-          :class="metadata?.id === item.id && 'border-solid'"
+          :class="metadata?.id === item.id ? 'border-solid' : 'class-for-vim'"
           @click="openHistory(item)"
         >
           <div flex-1 f-c-n justify-between pb-2 c-t>
